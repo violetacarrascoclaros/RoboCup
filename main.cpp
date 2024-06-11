@@ -10,6 +10,47 @@ using namespace std;
 #include <chrono>
 #include <thread>
 
+// Define Player struct
+
+struct Player
+{
+    std::string team_name;
+    std::string role;
+    std::string side;
+    int unum;
+    double x;
+    double y;
+};
+
+// Move command function
+void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &recipient)
+{
+    struct Posicion
+    {
+        int x;
+        int y;
+    };
+
+    vector<Posicion>
+        posiciones = {{50, 0},
+                      {35, -20},
+                      {35, 20},
+                      {20, -25},
+                      {18, -9},
+                      {18, 5},
+                      {20, 20},
+                      {2, -18},
+                      {28, -18},
+                      {35, 11},
+                      {5, 0}};
+  
+    Posicion myPos = posiciones[player.unum - 1];
+
+    auto moveCommand = "(move " + to_string(myPos.x) + " " + to_string(myPos.y) + ")";
+    udp_socket.sendTo(moveCommand, recipient);
+}
+
+
 // main with two args
 int main(int argc, char *argv[])
 {
@@ -53,10 +94,12 @@ int main(int argc, char *argv[])
     MinimalSocket::Address other_sender_udp = received_message->sender;
     MinimalSocket::Address server_udp = MinimalSocket::Address{"127.0.0.1", other_sender_udp.getPort()};
 
-    Player player;
-    player = Parser::parseInitialMessage(received_message_content, player);
-    cout << player << endl;
+/*
+    Player player{team_name, "striker", "left", 1, 0, 0};
+    //player = Parser::parseInitialMessage(received_message_content, player);
+    //cout << player << endl;
     sendInitialMoveMessage(player, udp_socket, server_udp);
 
+*/
 return 0;
 }
