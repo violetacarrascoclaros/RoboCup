@@ -25,7 +25,7 @@ struct Player
 
 
 // Parse initial message function (init Side Unum PlayMode)
-Player parseInitialMessage(const std::string &message, Player &player)
+Player parseInitialMessage(std::string &message, Player &player)
 {
     std::string delimiter = " ";
     size_t pos = 0;
