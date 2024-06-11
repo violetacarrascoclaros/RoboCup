@@ -12,7 +12,7 @@ include(FetchContent)
 set(BUILD_MinimalCppSocket_SAMPLES OFF CACHE BOOL "" FORCE) # you don't want the samples in this case
 FetchContent_Declare(
 min_sock
-GIT_REPOSITORY https://github.com/theDn2000/TB
+GIT_REPOSITORY https://github.com/andreacasalino/Minimal-Socket
 GIT_TAG        master
 )
 FetchContent_MakeAvailable(min_sock)
