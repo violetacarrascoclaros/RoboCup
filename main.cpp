@@ -132,7 +132,7 @@ int main(int argc, char *argv[])
     // parse the initial message
     player = parseInitialMessage(received_message_content, player);
     
-    cout << player << endl;
+    cout << player.unum << endl;
     //sendInitialMoveMessage(player, udp_socket, server_udp);
 
 return 0;
