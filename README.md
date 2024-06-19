@@ -1,12 +1,2 @@
->[!IMPORTANT]
->Prueba de github desde terminal
-
->[!NOTE]
->Hola usiadhisaudiu
-
->[!NOTE]
->Hola soy Luis
-
->[!NOTE]
->Hola soy maria
-
+siguiente paso que no salga el portero
+siguiente paso que sepan donde esta la porteria
