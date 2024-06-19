@@ -8,13 +8,11 @@ read TEAM_NAME
 PLAYER_EXECUTABLE="./build/player"
 
 # Definir el nombre de tu equipo y los puertos base
-BASE_PORT=8000
+BASE_PORT=6200
 
 # Ejecutar jugadores de tu equipo
 for i in {0..10}; do
     PORT=$(($BASE_PORT + $i))
-    $PLAYER_EXECUTABLE $TEAM_NAME $PORT &
+    xterm -e /bin/bash -l -c "$PLAYER_EXECUTABLE $TEAM_NAME $PORT" &
+    sleep 1
 done
-
-# Esperar a que todos los procesos finalicen
-wait
