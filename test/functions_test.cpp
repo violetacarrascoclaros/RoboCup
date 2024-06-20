@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "../functions.h"
-
+#include"../estructuras.h"
 
 using namespace std;
 
