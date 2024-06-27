@@ -162,49 +162,6 @@ int main(int argc, char *argv[])
 
                     break;
                 case 2:
-                    if (ball.distance < 1.5)
-                    {
-                        // Kick the ball
-                        int power = 100;
-                        std::string kick_command = "(kick " + to_string(power) + " 0)";
-                        udp_socket.sendTo(kick_command, server_udp);
-                    }
-                    else
-                    {
-                        int i = 0;
-                        if (abs(ball.angle) >= 10)
-                        {
-                            int division = 1;
-                            if (ball.distance < 6)
-                            {
-                                division = 20;
-                            }
-                            else
-                            {
-                                division = 5;
-                            }
-                            // Rotate the player to the ball
-                            std::string rotate_command = "(turn " + to_string(ball.angle / division) + ")";
-                            udp_socket.sendTo(rotate_command, server_udp);
-                        }
-
-                        else
-                        {
-                            int power = 100;
-                            if (ball.distance < 3)
-                            {
-                                power = 60;
-                            }
-                            else if (ball.distance < 7)
-                            {
-                                power = 80;
-                            }
-                            // In this moment, the player should be looking to the ball
-                            // Create the dash command
-                            std::string dash_command = "(dash " + to_string(power) + " 0)";
-                            udp_socket.sendTo(dash_command, server_udp);
-                        }
-                    }
 
                 break;
                 default:
