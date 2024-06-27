@@ -37,6 +37,7 @@ struct Goal
     std::string y;
     std::string side;
     float distance;
+    double angle;
 };
 
 struct JugadorCercano
