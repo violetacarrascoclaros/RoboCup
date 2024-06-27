@@ -7,7 +7,7 @@ using namespace std;
 
 // Include headers
 #include "functions.h"
-#include "structs.h"
+#include "estructuras.h"
 
 // Functions
 
