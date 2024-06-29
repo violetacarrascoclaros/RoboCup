@@ -128,10 +128,6 @@ int main(int argc, char *argv[])
             vector<string> see_message = separate_string(parsed_message[0]);
             store_data_see(see_message, player, ball, own_goal, opponent_goal, field);
             bool in_position = estasentusitio(field, player, own_goal, opponent_goal);
-            cout << "In position: " << in_position << endl;
-            cout << field.flag_left_top_distance << endl;
-            cout << field.flag_right_top_distance << endl;
-            cout << opponent_goal.distance << endl;
             // Logic of the player
             if (in_position == true)
             {
@@ -259,10 +255,14 @@ int main(int argc, char *argv[])
 
             else
             {
+
                 // Go to your position
                 switch (player.unum)
                 {
                 case 1:
+                    cout << field.flag_left_top_distance << endl;
+                    cout << field.flag_left_bottom_distance << endl;
+                    cout << opponent_goal.distance << endl;
                     if (player.see_own_goal)
                     {
                         int i = 0;
@@ -313,13 +313,34 @@ int main(int argc, char *argv[])
                              << endl;
                     }
                     break;
+                case 2:
+                    // cout << "own goal distance: " << own_goal.distance << endl;
+                    // cout << "flag left bottom distance: " << field.flag_left_bottom_distance << endl;
+                    // cout << "flag left top distance: " << field.flag_left_top_distance << endl;
+                    // cout << "flag center top distance: " << field.flag_center_top_distance << endl;
+                    // cout << "opponent goal distance: " << opponent_goal.distance << endl;
+                    // cout << endl
+                    //      << endl;
+                    break;
+                case 3:
+                    // cout << "own goal distance: " << own_goal.distance << endl;
+                    // cout << "field flag left bottom distance: " << field.flag_left_bottom_distance << endl;
+                    // cout << "field flag left top distance: " << field.flag_left_top_distance << endl;
+                    // cout << "field flag center top distance: " << field.flag_center_top_distance << endl;
+                    // cout << "opponent goal distance: " << opponent_goal.distance << endl;
+                    break;
+                case 7:
+                    // cout << "own goal distance: " << own_goal.distance << endl;
+                    // cout << "flag left bottom distance: " << field.flag_left_bottom_distance << endl;
+                    // cout << "flag center bottom distance: " << field.flag_center_bottom_distance << endl;
+                    // cout << "opponent goal distance: " << opponent_goal.distance << endl;
+                    break;
                 default:
 
                     break;
                 }
             }
         }
-        
     }
     return 0;
 }
