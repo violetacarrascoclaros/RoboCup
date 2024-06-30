@@ -274,94 +274,192 @@ bool estasentusitio(const Field &field, const Player &player, const Goal &own_go
         switch (player.unum)
         {
         case 1:
-            if ((field.flag_left_top_distance > 27 || field.flag_left_top_distance <=0.1) &&
-                (field.flag_left_bottom_distance > 27 || field.flag_left_bottom_distance <=0.1) &&
-                (opponent_goal.distance > 90 || opponent_goal.distance <=0.1))
+            if ((field.flag_left_top_distance > 27 || field.flag_left_top_distance <= 0.1) &&
+                (field.flag_left_bottom_distance > 27 || field.flag_left_bottom_distance <= 0.1) &&
+                (opponent_goal.distance > 90 || opponent_goal.distance <= 0.1))
             {
                 return true;
             }
 
             break;
         case 2:
-            if ((own_goal.distance > 7 || own_goal.distance <=0.1) &&
-                (field.flag_left_top_distance > 33 || field.flag_left_top_distance <=0.1) &&
-                (field.flag_left_bottom_distance > 14.5 || field.flag_left_bottom_distance <=0.1) &&
-                (field.flag_center_bottom_distance > 42.5 || field.flag_center_bottom_distance <=0.1) &&
-                (opponent_goal.distance > 77.5 || opponent_goal.distance <=0.1))
+            if ((own_goal.distance > 7 || own_goal.distance <= 0.1) &&
+                (field.flag_left_top_distance > 33 || field.flag_left_top_distance <= 0.1) &&
+                (field.flag_left_bottom_distance > 14.5 || field.flag_left_bottom_distance <= 0.1) &&
+                (field.flag_center_bottom_distance > 42.5 || field.flag_center_bottom_distance <= 0.1) &&
+                (opponent_goal.distance > 77.5 || opponent_goal.distance <= 0.1))
             {
                 return true;
             }
             break;
         case 3:
-            if ((own_goal.distance > 7 || own_goal.distance <=0.1) &&
-                (field.flag_left_bottom_distance > 33 || field.flag_left_bottom_distance <=0.1) &&
-                (field.flag_left_top_distance > 14.5 || field.flag_left_top_distance <=0.1) &&
-                (field.flag_center_top_distance > 30 || field.flag_center_top_distance <=0.1) &&
-                (opponent_goal.distance > 77.5 || opponent_goal.distance <=0.1))
+            if ((own_goal.distance > 7 || own_goal.distance <= 0.1) &&
+                (field.flag_left_bottom_distance > 33 || field.flag_left_bottom_distance <= 0.1) &&
+                (field.flag_left_top_distance > 14.5 || field.flag_left_top_distance <= 0.1) &&
+                (field.flag_center_top_distance > 30 || field.flag_center_top_distance <= 0.1) &&
+                (opponent_goal.distance > 77.5 || opponent_goal.distance <= 0.1))
             {
                 return true;
             }
             break;
         case 4:
-            if ((own_goal.distance > 17.6 || own_goal.distance <=0.1) &&
-                (field.flag_center_bottom_distance > 54 || field.flag_center_bottom_distance <=0.1) &&
-                (opponent_goal.distance > 61.5 || opponent_goal.distance <=0.1))
+            if ((own_goal.distance > 17.6 || own_goal.distance <= 0.1) &&
+                (field.flag_center_bottom_distance > 54 || field.flag_center_bottom_distance <= 0.1) &&
+                (opponent_goal.distance > 61.5 || opponent_goal.distance <= 0.1))
             {
                 return true;
             }
             break;
         case 5:
-            if ((own_goal.distance > 17.6 || own_goal.distance <=0.1) &&
-                (field.flag_center_top_distance > 54 || field.flag_center_top_distance <=0.1) &&
-                (opponent_goal.distance > 61.5 || opponent_goal.distance <=0.1))
+            if ((own_goal.distance > 17.6 || own_goal.distance <= 0.1) &&
+                (field.flag_center_top_distance > 54 || field.flag_center_top_distance <= 0.1) &&
+                (opponent_goal.distance > 61.5 || opponent_goal.distance <= 0.1))
             {
                 return true;
             }
             break;
         case 6:
-            if ((own_goal.distance > 8 || own_goal.distance <=0.1) &&
-                (field.flag_left_top_distance > 25 || field.flag_left_top_distance <=0.1) &&
-                (field.flag_center_top_distance > 41.5 || field.flag_center_top_distance <=0.1) &&
-                (opponent_goal.distance > 68.5 || opponent_goal.distance <=0.1))
+            if ((own_goal.distance > 8 || own_goal.distance <= 0.1) &&
+                (field.flag_left_top_distance > 25 || field.flag_left_top_distance <= 0.1) &&
+                (field.flag_center_top_distance > 41.5 || field.flag_center_top_distance <= 0.1) &&
+                (opponent_goal.distance > 68.5 || opponent_goal.distance <= 0.1))
             {
                 return true;
             }
             break;
         case 7:
-            if ((own_goal.distance > 8 || own_goal.distance <=0.1) &&
-                (field.flag_left_bottom_distance > 25 || field.flag_left_bottom_distance <=0.1) &&
-                (field.flag_center_bottom_distance > 20 || field.flag_center_bottom_distance <=0.1) &&
-                (opponent_goal.distance > 60 || opponent_goal.distance <=0.1))
+            if ((own_goal.distance > 8 || own_goal.distance <= 0.1) &&
+                (field.flag_left_bottom_distance > 25 || field.flag_left_bottom_distance <= 0.1) &&
+                (field.flag_center_bottom_distance > 20 || field.flag_center_bottom_distance <= 0.1) &&
+                (opponent_goal.distance > 60 || opponent_goal.distance <= 0.1))
             {
                 return true;
             }
             break;
         case 8:
-            if ((own_goal.distance > 35.5 || own_goal.distance <=0.1) &&
-                (field.flag_center_top_distance > 32 || field.flag_center_top_distance <=0.1) &&
-                (field.flag_right_top_distance > 25 || field.flag_right_top_distance <=0.1))
+            if ((own_goal.distance > 35.5 || own_goal.distance <= 0.1) &&
+                (field.flag_center_top_distance > 32 || field.flag_center_top_distance <= 0.1) &&
+                (field.flag_right_top_distance > 25 || field.flag_right_top_distance <= 0.1))
             {
                 return true;
             }
             break;
         case 9:
-            if ((own_goal.distance > 35.5 || own_goal.distance <=0.1) &&
-                (field.flag_center_bottom_distance > 32 || field.flag_center_bottom_distance <=0.1) &&
-                (field.flag_right_bottom_distance > 25 || field.flag_right_bottom_distance <=0.1))
+            if ((own_goal.distance > 35.5 || own_goal.distance <= 0.1) &&
+                (field.flag_center_bottom_distance > 32 || field.flag_center_bottom_distance <= 0.1) &&
+                (field.flag_right_bottom_distance > 25 || field.flag_right_bottom_distance <= 0.1))
             {
                 return true;
             }
             break;
         case 10:
-            if ((own_goal.distance > 14 || own_goal.distance <=0.1) &&
-                (field.flag_left_top_distance > 35.5 || field.flag_left_top_distance <=0.1) &&
-                (field.flag_left_bottom_distance > 35.5 || field.flag_left_bottom_distance <=0.1))
+            if ((own_goal.distance > 14 || own_goal.distance <= 0.1) &&
+                (field.flag_left_top_distance > 35.5 || field.flag_left_top_distance <= 0.1) &&
+                (field.flag_left_bottom_distance > 35.5 || field.flag_left_bottom_distance <= 0.1))
             {
                 return true;
             }
             break;
         case 11:
-            if ((own_goal.distance > 35.5 || own_goal.distance <=0.1))
+            if ((own_goal.distance > 35.5 || own_goal.distance <= 0.1))
+            {
+                return true;
+            }
+            break;
+        }
+    }
+    else
+    {
+        switch (player.unum)
+        {
+        case 1:
+            if ((field.flag_right_top_distance > 27 || field.flag_right_top_distance <= 0.1) &&
+                (field.flag_right_bottom_distance > 27 || field.flag_right_bottom_distance <= 0.1) &&
+                (opponent_goal.distance > 90 || opponent_goal.distance <= 0.1))
+            {
+                return true;
+            }
+            break;
+        case 2:
+            if ((own_goal.distance > 7 || own_goal.distance <= 0.1) &&
+                (field.flag_right_top_distance > 33 || field.flag_right_top_distance <= 0.1) &&
+                (field.flag_right_bottom_distance > 14.5 || field.flag_right_bottom_distance <= 0.1) &&
+                (field.flag_center_top_distance > 42.5 || field.flag_center_top_distance <= 0.1) &&
+                (opponent_goal.distance > 77.5 || opponent_goal.distance <= 0.1))
+            {
+                return true;
+            }
+            break;
+        case 3:
+            if ((own_goal.distance > 7 || own_goal.distance <= 0.1) &&
+                (field.flag_right_bottom_distance > 20 || field.flag_right_bottom_distance <= 0.1) &&
+                (field.flag_right_top_distance > 14.5 || field.flag_right_top_distance <= 0.1) &&
+                (field.flag_center_bottom_distance > 30 || field.flag_center_bottom_distance <= 0.1) &&
+                (opponent_goal.distance > 77.5 || opponent_goal.distance <= 0.1))
+            {
+                return true;
+            }
+            break;
+        case 4:
+            if ((own_goal.distance > 17.6 || own_goal.distance <= 0.1) &&
+                (field.flag_center_top_distance > 54 || field.flag_center_top_distance <= 0.1) &&
+                (opponent_goal.distance > 61.5 || opponent_goal.distance <= 0.1))
+            {
+                return true;
+            }
+            break;
+        case 5:
+            if ((own_goal.distance > 17.6 || own_goal.distance <= 0.1) &&
+                (field.flag_center_bottom_distance > 54 || field.flag_center_bottom_distance <= 0.1) &&
+                (opponent_goal.distance > 61.5 || opponent_goal.distance <= 0.1))
+            {
+                return true;
+            }
+            break;
+        case 6:
+            if ((own_goal.distance > 8 || own_goal.distance <= 0.1) &&
+                (field.flag_right_top_distance > 25 || field.flag_right_top_distance <= 0.1) &&
+                (field.flag_center_bottom_distance > 41.5 || field.flag_center_bottom_distance <= 0.1) &&
+                (opponent_goal.distance > 68.5 || opponent_goal.distance <= 0.1))
+            {
+                return true;
+            }
+            break;
+        case 7:
+            if ((own_goal.distance > 8 || own_goal.distance <= 0.1) &&
+                (field.flag_right_bottom_distance > 25 || field.flag_right_bottom_distance <= 0.1) &&
+                (field.flag_center_top_distance > 20 || field.flag_center_top_distance <= 0.1) &&
+                (opponent_goal.distance > 60 || opponent_goal.distance <= 0.1))
+            {
+                return true;
+            }
+            break;
+        case 8:
+            if ((own_goal.distance > 35.5 || own_goal.distance <= 0.1) &&
+                (field.flag_center_bottom_distance > 32 || field.flag_center_bottom_distance <= 0.1) &&
+                (field.flag_left_top_distance > 25 || field.flag_left_top_distance <= 0.1))
+            {
+                return true;
+            }
+            break;
+        case 9:
+            if ((own_goal.distance > 35.5 || own_goal.distance <= 0.1) &&
+                (field.flag_center_bottom_distance > 32 || field.flag_center_bottom_distance <= 0.1) &&
+                (field.flag_left_bottom_distance > 25 || field.flag_left_bottom_distance <= 0.1))
+            {
+                return true;
+            }
+            break;
+        case 10:
+            if ((own_goal.distance > 14 || own_goal.distance <= 0.1) &&
+                (field.flag_right_top_distance > 35.5 || field.flag_right_top_distance <= 0.1) &&
+                (field.flag_right_bottom_distance > 35.5 || field.flag_right_bottom_distance <= 0.1))
+            {
+                return true;
+            }
+            break;
+        case 11:
+            if ((own_goal.distance > 35.5 || own_goal.distance <= 0.1))
             {
                 return true;
             }

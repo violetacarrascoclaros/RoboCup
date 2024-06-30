@@ -114,6 +114,11 @@ int main(int argc, char *argv[])
         own_goal.side = "l";
     }
 
+    float posicion_anterior_x=player.x;
+    float posicion_anterior_y=player.y;
+    float posicion_actual_x=player.x;
+    float posicion_actual_y=player.y;
+    float angulo_anterior=0;
     while (true)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -326,28 +331,6 @@ int main(int argc, char *argv[])
                              << endl;
                     }
                     break;
-                // case 2:
-                //     // cout << "own goal distance: " << own_goal.distance << endl;
-                //     // cout << "flag left bottom distance: " << field.flag_left_bottom_distance << endl;
-                //     // cout << "flag left top distance: " << field.flag_left_top_distance << endl;
-                //     // cout << "flag center top distance: " << field.flag_center_top_distance << endl;
-                //     // cout << "opponent goal distance: " << opponent_goal.distance << endl;
-                //     // cout << endl
-                //     //      << endl;
-                //     break;
-                // case 3:
-                //     // cout << "own goal distance: " << own_goal.distance << endl;
-                //     // cout << "field flag left bottom distance: " << field.flag_left_bottom_distance << endl;
-                //     // cout << "field flag left top distance: " << field.flag_left_top_distance << endl;
-                //     // cout << "field flag center top distance: " << field.flag_center_top_distance << endl;
-                //     // cout << "opponent goal distance: " << opponent_goal.distance << endl;
-                //     break;
-                // case 7:
-                //     // cout << "own goal distance: " << own_goal.distance << endl;
-                //     // cout << "flag left bottom distance: " << field.flag_left_bottom_distance << endl;
-                //     // cout << "flag center bottom distance: " << field.flag_center_bottom_distance << endl;
-                //     // cout << "opponent goal distance: " << opponent_goal.distance << endl;
-                //     break;
                 default:
                 if (player.see_opponent_goal){
                     std::string dash_command = "(dash " + to_string(80) + " 180)";
@@ -357,12 +340,15 @@ int main(int argc, char *argv[])
                     std::string rotate_command = "(turn " + to_string(80) + ")";
                     udp_socket.sendTo(rotate_command, server_udp);
                 }
-
-
                     break;
                 }
             }
         }
+        posicion_anterior_x=posicion_actual_x;
+        posicion_anterior_y=posicion_actual_y;
+        posicion_actual_x=player.x;
+        posicion_actual_y=player.y;
+        angulo_anterior = atan2(posicion_actual_y - posicion_anterior_y, posicion_actual_x - posicion_anterior_x) * 180 / M_PI;
     }
     return 0;
 }
