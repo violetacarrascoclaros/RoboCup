@@ -140,11 +140,13 @@ int main(int argc, char *argv[])
                     switch (player.unum)
                     {
                     case 1:
-                        if (ball.distance < 1.5)
+                        if (ball.distance < 1)
                         {
                             // Kick the ball
+                            float angle=opponent_goal.angle;
                             int power = 100;
-                            std::string kick_command = "(kick " + to_string(power) + " 0)";
+                            cout << "Angle: " << angle << endl<<endl<<endl;
+                            std::string kick_command = "(kick " + to_string(power) + " " + to_string(angle) + ")";
                             udp_socket.sendTo(kick_command, server_udp);
                         }
                         else
@@ -190,12 +192,23 @@ int main(int argc, char *argv[])
                         break;
 
                     default:
-                        if (ball.distance < 1.5)
+                        if (ball.distance < 1)
                         {
-                            // Kick the ball
-                            int power = 100;
-                            std::string kick_command = "(kick " + to_string(power) + " 0)";
-                            udp_socket.sendTo(kick_command, server_udp);
+                            if (player.see_opponent_goal)
+                            {
+                                // Kick the ball
+                                float angle = opponent_goal.angle;
+                                int power = 100;
+                                std::string kick_command = "(kick " + to_string(power) + " " + to_string(angle) + ")";
+                                udp_socket.sendTo(kick_command, server_udp);
+                            }
+                            else
+                            {
+                                //Aqui deberia pasarsela a otro compañero
+                                int power = 100;
+                                std::string kick_command = "(kick " + to_string(power) + " 0)"; 
+                                udp_socket.sendTo(kick_command, server_udp);
+                            }
                         }
                         else
                         {
@@ -313,29 +326,38 @@ int main(int argc, char *argv[])
                              << endl;
                     }
                     break;
-                case 2:
-                    // cout << "own goal distance: " << own_goal.distance << endl;
-                    // cout << "flag left bottom distance: " << field.flag_left_bottom_distance << endl;
-                    // cout << "flag left top distance: " << field.flag_left_top_distance << endl;
-                    // cout << "flag center top distance: " << field.flag_center_top_distance << endl;
-                    // cout << "opponent goal distance: " << opponent_goal.distance << endl;
-                    // cout << endl
-                    //      << endl;
-                    break;
-                case 3:
-                    // cout << "own goal distance: " << own_goal.distance << endl;
-                    // cout << "field flag left bottom distance: " << field.flag_left_bottom_distance << endl;
-                    // cout << "field flag left top distance: " << field.flag_left_top_distance << endl;
-                    // cout << "field flag center top distance: " << field.flag_center_top_distance << endl;
-                    // cout << "opponent goal distance: " << opponent_goal.distance << endl;
-                    break;
-                case 7:
-                    // cout << "own goal distance: " << own_goal.distance << endl;
-                    // cout << "flag left bottom distance: " << field.flag_left_bottom_distance << endl;
-                    // cout << "flag center bottom distance: " << field.flag_center_bottom_distance << endl;
-                    // cout << "opponent goal distance: " << opponent_goal.distance << endl;
-                    break;
+                // case 2:
+                //     // cout << "own goal distance: " << own_goal.distance << endl;
+                //     // cout << "flag left bottom distance: " << field.flag_left_bottom_distance << endl;
+                //     // cout << "flag left top distance: " << field.flag_left_top_distance << endl;
+                //     // cout << "flag center top distance: " << field.flag_center_top_distance << endl;
+                //     // cout << "opponent goal distance: " << opponent_goal.distance << endl;
+                //     // cout << endl
+                //     //      << endl;
+                //     break;
+                // case 3:
+                //     // cout << "own goal distance: " << own_goal.distance << endl;
+                //     // cout << "field flag left bottom distance: " << field.flag_left_bottom_distance << endl;
+                //     // cout << "field flag left top distance: " << field.flag_left_top_distance << endl;
+                //     // cout << "field flag center top distance: " << field.flag_center_top_distance << endl;
+                //     // cout << "opponent goal distance: " << opponent_goal.distance << endl;
+                //     break;
+                // case 7:
+                //     // cout << "own goal distance: " << own_goal.distance << endl;
+                //     // cout << "flag left bottom distance: " << field.flag_left_bottom_distance << endl;
+                //     // cout << "flag center bottom distance: " << field.flag_center_bottom_distance << endl;
+                //     // cout << "opponent goal distance: " << opponent_goal.distance << endl;
+                //     break;
                 default:
+                if (player.see_opponent_goal){
+                    std::string dash_command = "(dash " + to_string(80) + " 180)";
+                    udp_socket.sendTo(dash_command, server_udp);
+                }
+                else{
+                    std::string rotate_command = "(turn " + to_string(80) + ")";
+                    udp_socket.sendTo(rotate_command, server_udp);
+                }
+
 
                     break;
                 }

@@ -15,6 +15,7 @@ struct Player
     bool see_ball;
     bool see_own_goal;
     bool see_opponent_goal;
+    bool see_left_top;
     int flags_seen;
     int unum;
     double x;
@@ -68,6 +69,7 @@ struct Field
     float flag_center_bottom_distance;
     vector<float> flag_left_top;
     float flag_left_top_distance;
+    float flag_left_top_angle;
     vector<float> flag_left_bottom;
     float flag_left_bottom_distance;
     vector<float> flag_right_top;

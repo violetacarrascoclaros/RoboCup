@@ -229,7 +229,9 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> left_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_left_top = {stof(left_top_coords[3]), stof(left_top_coords[4])};
             field.flag_left_top_distance = sqrt(pow(stof(left_top_coords[3]), 2) + pow(stof(left_top_coords[4]), 2));
+            field.flag_left_top_angle = atan2(stof(left_top_coords[4]), stof(left_top_coords[3])) * 180 / M_PI;
             player.flags_seen++;
+            player.see_left_top = true;
         }
 
         // Search for the left bottom flag
@@ -326,13 +328,13 @@ bool estasentusitio(const Field &field, const Player &player, const Goal &own_go
             }
             break;
         case 7:
-            // if ((own_goal.distance > 8 || own_goal.distance <=0.1) &&
-            //     (field.flag_left_bottom_distance > 25 || field.flag_left_bottom_distance <=0.1) &&
-            //     (field.flag_center_bottom_distance > 20 || field.flag_center_bottom_distance <=0.1) &&
-            //     (opponent_goal.distance > 60 || opponent_goal.distance <=0.1))
-            //{
+            if ((own_goal.distance > 8 || own_goal.distance <=0.1) &&
+                (field.flag_left_bottom_distance > 25 || field.flag_left_bottom_distance <=0.1) &&
+                (field.flag_center_bottom_distance > 20 || field.flag_center_bottom_distance <=0.1) &&
+                (opponent_goal.distance > 60 || opponent_goal.distance <=0.1))
+            {
                 return true;
-            //}
+            }
             break;
         case 8:
             if ((own_goal.distance > 35.5 || own_goal.distance <=0.1) &&
@@ -343,26 +345,26 @@ bool estasentusitio(const Field &field, const Player &player, const Goal &own_go
             }
             break;
         case 9:
-            // if ((own_goal.distance > 35.5 || own_goal.distance <=0.1) &&
-            //     (field.flag_center_bottom_distance > 32 || field.flag_center_bottom_distance <=0.1) &&
-            //     (field.flag_right_bottom_distance > 25 || field.flag_right_bottom_distance <=0.1))
-            //{
+            if ((own_goal.distance > 35.5 || own_goal.distance <=0.1) &&
+                (field.flag_center_bottom_distance > 32 || field.flag_center_bottom_distance <=0.1) &&
+                (field.flag_right_bottom_distance > 25 || field.flag_right_bottom_distance <=0.1))
+            {
                 return true;
-            //}
+            }
             break;
         case 10:
-            // if ((own_goal.distance > 14 || own_goal.distance <=0.1) &&
-            //     (field.flag_left_top_distance > 35.5 || field.flag_left_top_distance <=0.1) &&
-            //     (field.flag_left_bottom_distance > 35.5 || field.flag_left_bottom_distance <=0.1))
-            //{
+            if ((own_goal.distance > 14 || own_goal.distance <=0.1) &&
+                (field.flag_left_top_distance > 35.5 || field.flag_left_top_distance <=0.1) &&
+                (field.flag_left_bottom_distance > 35.5 || field.flag_left_bottom_distance <=0.1))
+            {
                 return true;
-            //}
+            }
             break;
         case 11:
-            //if ((own_goal.distance > 35.5 || own_goal.distance <=0.1))
-            //{
+            if ((own_goal.distance > 35.5 || own_goal.distance <=0.1))
+            {
                 return true;
-            //}
+            }
             break;
         }
     }
