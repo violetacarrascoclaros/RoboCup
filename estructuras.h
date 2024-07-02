@@ -20,6 +20,11 @@ struct Player
     int unum;
     double x;
     double y;
+    float stamina;
+    bool in_zone;
+    bool OutOfField;
+    std::string rol;
+    double distancia_a_zona;
 };
 
 struct Ball

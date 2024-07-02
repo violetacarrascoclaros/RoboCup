@@ -113,12 +113,6 @@ int main(int argc, char *argv[])
         opponent_goal.side = "r";
         own_goal.side = "l";
     }
-
-    float posicion_anterior_x=player.x;
-    float posicion_anterior_y=player.y;
-    float posicion_actual_x=player.x;
-    float posicion_actual_y=player.y;
-    float angulo_anterior=0;
     while (true)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -344,11 +338,6 @@ int main(int argc, char *argv[])
                 }
             }
         }
-        posicion_anterior_x=posicion_actual_x;
-        posicion_anterior_y=posicion_actual_y;
-        posicion_actual_x=player.x;
-        posicion_actual_y=player.y;
-        angulo_anterior = atan2(posicion_actual_y - posicion_anterior_y, posicion_actual_x - posicion_anterior_x) * 180 / M_PI;
     }
     return 0;
 }
