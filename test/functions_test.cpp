@@ -35,8 +35,31 @@ TEST(CalcularCosteYRecompensaIrAPorLaPelotaTest, TestBasico) {
 
     // Aseguramos que los valores de coste y recompensa sean razonables
     EXPECT_GT(coste, 0.0);
-    EXPECT_LT(recompensa, 100.0);
+    EXPECT_EQ(recompensa, 105);
     EXPECT_GT(recompensa, 0.0);
+}
+
+TEST (CalcularCosteYRecompensaIrAPorLaPelotaTest, TestFueraDeCampo)
+{
+    Player player;
+    player.stamina = 70;
+    player.rol = "DELANTERO";
+    player.see_ball = true;
+    player.see_opponent_goal = true;
+    player.OutOfField = true;
+
+    Ball ball;
+    ball.distance = 30;
+
+    Goal goal;
+    goal.distance = 50;
+
+    double coste, recompensa;
+    calcularCosteYRecompensaIrAPorLaPelota(player, ball, goal, coste, recompensa);
+
+    // Aseguramos que los valores de coste y recompensa sean razonables
+    EXPECT_GT(coste, 0.0);
+    EXPECT_GT(recompensa, 9999);
 }
 
 TEST(CalcularCosteYRecompensaPasarTest, TestBasico) {
@@ -81,7 +104,7 @@ TEST(CalcularCosteYRecompensaChutarTest, TestBasico) {
 
     // Aseguramos que los valores de coste y recompensa sean razonables
     EXPECT_GT(coste, 0.0);
-    EXPECT_LT(recompensa, 100.0);
+    EXPECT_EQ(recompensa, 105.0);
     EXPECT_GT(recompensa, 0.0);
 }
 

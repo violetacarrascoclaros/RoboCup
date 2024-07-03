@@ -30,8 +30,8 @@ void calcularCosteYRecompensaIrAPorLaPelota(Player& player, const Ball& ball, co
     recompensa = 100 - distPelota; // Mayor recompensa cuanto más cerca de la pelota
 
     // Ajuste si el jugador está fuera del campo
-    if (!player.OutOfField) {
-        coste = 9999; // Coste muy alto si está fuera del campo
+    if (player.OutOfField) {
+        recompensa = 9999; // Recompensa muy alto si está fuera del campo
     }
 
     // Ajuste por rol del jugador
@@ -49,7 +49,7 @@ void calcularCosteYRecompensaIrAPorLaPelota(Player& player, const Ball& ball, co
     }
 
     // Ajuste si el jugador no ve la portería
-    if (!player.see_opponent_goal) {
+    if (!player.see_opponent_goal && !player.OutOfField) {
         recompensa *= 0.8; // Disminuye la recompensa si no ve la portería
     }
 }
