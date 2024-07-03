@@ -52,6 +52,11 @@ void calcularCosteYRecompensaIrAPorLaPelota(Player& player, const Ball& ball, co
     if (!player.see_opponent_goal && !player.OutOfField) {
         recompensa *= 0.8; // Disminuye la recompensa si no ve la portería
     }
+
+   //Ajuste si ya esta en la pelota
+    if (distPelota < 1.5) {
+        recompensa = 1; // Recompensa baja si ya está en la pelota
+    }
 }
 
 
@@ -119,12 +124,16 @@ void calcularCosteYRecompensaVolverAZona(Player& player, const Ball& ball, const
     // Recompensa base
     recompensa=60 + distancia_a_zona; // Disminuye cuanto más lejos de zona está
     // Ajuste por cercanía a portería
-    if (distPorteria < 10) {
+    if (distPorteria < 15) {
         coste *= 3; // Aumenta el coste si está cerca de la portería
     } 
     //Ajuste por numero de jugadores cerca
     if (jugadoresCerca>3){
         recompensa *=1.5;
+    }
+    // Ajuste por la distancia a la pelota
+    if (distPelota < 10) {
+        recompensa *=0.5; // Recompensa baja si ya está en la pelota
     }
    
 }

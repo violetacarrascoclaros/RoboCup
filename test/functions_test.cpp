@@ -132,7 +132,7 @@ TEST(CalcularCosteYRecompensaVolverAZonaTest, TestBasico) {
 }
 
 // Ejemplo de test para obtener la mejor acción
-TEST(ObtenerMejorAccionTest, TestBasico) {
+TEST(ObtenerMejorAccionTest, TestIrAPorLaPelota) {
     Player player;
     player.stamina = 70;
     player.rol = "DELANTERO";
@@ -149,6 +149,70 @@ TEST(ObtenerMejorAccionTest, TestBasico) {
     int mejorAccion = obtenerMejorAccion(player, ball, goal);
 
     // Aseguramos que la mejor acción devuelta sea válida (0, 1, 2 o 3)
-    EXPECT_GE(mejorAccion, 0);
-    EXPECT_LE(mejorAccion, 3);
+
+    EXPECT_EQ(mejorAccion, 0);
+}
+
+TEST(ObtenerMejorAccionTest, TestPasar) {
+    Player player;
+    player.stamina = 70;
+    player.rol = "DEFENSA";
+    player.see_ball = true;
+    player.see_opponent_goal = true;
+    player.OutOfField = false;
+
+    Ball ball;
+    ball.distance = 1;
+
+    Goal goal;
+    goal.distance = 40;
+
+    int mejorAccion = obtenerMejorAccion(player, ball, goal);
+
+    // Aseguramos que la mejor acción devuelta sea válida (0, 1, 2 o 3)
+
+    EXPECT_EQ(mejorAccion, 1);
+}
+
+TEST(ObtenerMejorAccionTest, TestChutar) {
+    Player player;
+    player.stamina = 70;
+    player.rol = "DELANTERO";
+    player.see_ball = true;
+    player.see_opponent_goal = true;
+    player.OutOfField = false;
+
+    Ball ball;
+    ball.distance = 1;
+
+    Goal goal;
+    goal.distance = 30;
+
+    int mejorAccion = obtenerMejorAccion(player, ball, goal);
+
+    // Aseguramos que la mejor acción devuelta sea válida (0, 1, 2 o 3)
+
+    EXPECT_EQ(mejorAccion, 2);
+}
+TEST (ObtenerMejorAccionTest, TestVolverAZona)
+{
+    Player player;
+    player.stamina = 70;
+    player.rol = "DEFENSA";
+    player.see_ball = true;
+    player.see_opponent_goal = true;
+    player.OutOfField = false;
+    player.distancia_a_zona= 50;
+
+    Ball ball;
+    ball.distance = 20;
+
+    Goal goal;
+    goal.distance = 50;
+
+    int mejorAccion = obtenerMejorAccion(player, ball, goal);
+
+    // Aseguramos que la mejor acción devuelta sea válida (0, 1, 2 o 3)
+
+    EXPECT_EQ(mejorAccion, 3);
 }
