@@ -58,6 +58,11 @@ int main(int argc, char *argv[])
     MinimalSocket::Address other_sender_udp = received_message->sender;
     MinimalSocket::Address server_udp = MinimalSocket::Address{"127.0.0.1", other_sender_udp.getPort()};
 
+
+
+
+   
+
     // Create objects
     Player player{team_name, "", "", false, 0, 0, 0};
     Ball ball{"0", "0", "0", "0"};
@@ -71,6 +76,8 @@ int main(int argc, char *argv[])
     cout << player.unum << endl;
     sendInitialMoveMessage(player, udp_socket, server_udp);
 
+    
+
     // Configure the goals
     if (player.side == "r")
     {
@@ -82,6 +89,9 @@ int main(int argc, char *argv[])
         opponent_goal.side = "r";
         own_goal.side = "l";
     }
+
+
+
     while (true)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -102,15 +112,18 @@ int main(int argc, char *argv[])
         switch (mejorAccion)
         {
             case 0:
-                // Perform action 0
+                // Perform go for the ball
                 break;
             case 1:
-                // Perform action 1
+                // Perform pass the ball
                 break;
             case 2:
-                // Perform action 2
+                // Perform kick the ball to the goal
                 break;
             // Add more cases for other actions
+            case 3:
+                // Perform go to the zone
+                break;
             default:
                 // Perform default action
                 break;
