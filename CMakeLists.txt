@@ -27,6 +27,7 @@ link_directories(${CMAKE_CURRENT_SOURCE_DIR}/_deps/min_sock-src/build)
 set(SOURCE_FILES
     main.cpp
     functions.cpp
+    CosteVSRecompensa.cpp
 )
 
 add_executable(player ${SOURCE_FILES})

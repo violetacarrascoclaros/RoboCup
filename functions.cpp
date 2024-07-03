@@ -3,6 +3,7 @@
 #include <string>
 #include <stdexcept>
 #include <cmath>
+#include <MinimalSocket/udp/UdpSocket.h>
 using namespace std;
 
 // Include headers
@@ -10,6 +11,35 @@ using namespace std;
 #include "estructuras.h"
 
 // Functions
+
+// Move command function
+void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &recipient)
+{
+    struct Posicion
+    {
+        int x;
+        int y;
+    };
+
+    vector<Posicion>
+        posiciones = {{-50, 0},
+                      {-40, -10},
+                      {-35, -28},
+                      {-40, 10},
+                      {-35, 28},
+                      {-25, 11},
+                      {-8, 20},
+                      {-25, -11},
+                      {-5, 0},
+                      {-15, 0},
+                      {-8, -20}};
+
+    Posicion myPos = posiciones[player.unum - 1];
+
+    auto moveCommand = "(move " + to_string(myPos.x) + " " + to_string(myPos.y) + ")";
+    udp_socket.sendTo(moveCommand, recipient);
+    cout << "Move command sent" << "Posicion: " << moveCommand << endl;
+}
 
 // Parse initial message function (init Side Unum PlayMode)
 Player parseInitialMessage(std::string &message, Player &player)
@@ -467,4 +497,26 @@ bool estasentusitio(const Field &field, const Player &player, const Goal &own_go
         }
     }
     return false;
+}
+
+string dash(double power, double angle)
+{
+    std::string dash_command = "(dash " + to_string(power) + " " + to_string(angle) + ")";
+    return dash_command;
+}
+
+void store_data_hear(string &hear_message) //(hear 0 referee kick_off_l)  
+{
+    vector<string> aux_hear_message = separate_string(hear_message); // hear 0 referee kick_off_l
+    vector<string> valores_mensaje_Hear;
+    for (size_t i = 0; i < aux_hear_message.size(); i++)
+    {
+        if (aux_hear_message[i].find("hear") != string::npos)
+        {
+            valores_mensaje_Hear = separate_string_separator(aux_hear_message[i], " ");
+            cout << "TIME: " << valores_mensaje_Hear[1] << endl;
+            cout << "REFEREE: " << valores_mensaje_Hear[2] << endl;
+            cout << "MODO: " << valores_mensaje_Hear[3] << endl;
+        }
+    }
 }
