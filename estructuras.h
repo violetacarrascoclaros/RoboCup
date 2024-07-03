@@ -66,20 +66,20 @@ struct JugadoresAlrededor
 
 struct Field
 {
-    vector<float> flag_center;
+    std::vector<float> flag_center;
     float flag_center_distance;
-    vector<float> flag_center_top;
+    std::vector<float> flag_center_top;
     float flag_center_top_distance;
-    vector<float> flag_center_bottom;
+    std::vector<float> flag_center_bottom;
     float flag_center_bottom_distance;
-    vector<float> flag_left_top;
+    std::vector<float> flag_left_top;
     float flag_left_top_distance;
     float flag_left_top_angle;
-    vector<float> flag_left_bottom;
+    std::vector<float> flag_left_bottom;
     float flag_left_bottom_distance;
-    vector<float> flag_right_top;
+    std::vector<float> flag_right_top;
     float flag_right_top_distance;
-    vector<float> flag_right_bottom;
+    std::vector<float> flag_right_bottom;
     float flag_right_bottom_distance;
 };
 

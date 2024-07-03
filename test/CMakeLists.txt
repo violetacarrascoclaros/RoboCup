@@ -28,6 +28,7 @@ add_executable(
   main.cpp
   functions_test.cpp
   ../functions.cpp
+  ../CosteVSRecompensa.cpp
 )
 target_link_libraries(
   runTests
