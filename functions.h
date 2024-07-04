@@ -33,7 +33,7 @@ void configurePlayer(Player &player);
 
 string returnToZone(Player const &player);
 
-void imInZone(Player const &player);
+void imInZone(Player &player);
 
 void pasar(Player &player, Ball &ball, Goal &opponent_goal, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp);
 

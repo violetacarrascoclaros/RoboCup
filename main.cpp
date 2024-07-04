@@ -253,7 +253,7 @@ int main(int argc, char *argv[])
         std::string received_message_content = received_message->received_message;
 
         vector<string> parsed_message = separate_string(received_message_content);
-
+        imInZone(player);
         store_data_senseBody(received_message_content,player);
 
         // Search for see message
@@ -352,6 +352,8 @@ int main(int argc, char *argv[])
             cout << "Mejor accion: " << mejorAccion << endl;
             cout << "Mejor accion: " << mejorAccion << endl;
             cout <<"numero"<<player.unum<<endl;
+
+            cout << "En posicion: "<<player.in_zone<<endl;
 
             switch (mejorAccion)
             {

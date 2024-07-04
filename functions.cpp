@@ -892,7 +892,7 @@ void configurePlayer(Player &player)
 
 string returnToZone(Player const &player)
 {
-    cout << "Not in zone" << endl;
+    //cout << "Not in zone" << endl; esto es mentira
     if (player.seeing_zone == false)
     {
         std::string rotate_command = "(turn " + to_string(50) + ")";
