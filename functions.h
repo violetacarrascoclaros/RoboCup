@@ -17,10 +17,26 @@ vector<string> separate_string_separator(string & s, string separator);
 
 void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goal &own_goal, Goal &opponent_goal, Field &field);
 
-vector<float> trilateration(vector<float> &P1, vector<float> &P2, vector<float> &P3);
-
 bool estasentusitio (const Field &field, const Player &player, const Goal &own_goal, const Goal &opponent_goal);
 
 string dash(double power, double angle);
 
 void store_data_hear(string &hear_message);
+
+void chutarPorteria(Player &player, Ball &ball, Goal &opponent_goal, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp);
+
+int procesarJugadoresVisibles(vector<string> see_message);
+
+void mostrarJugadoresVisibles(const vector<JugadorCercano> &jugadores_visibles);
+
+void configurePlayer(Player &player);
+
+string returnToZone(Player const &player);
+
+void imInZone(Player const &player);
+
+void pasar(Player &player, Ball &ball, Goal &opponent_goal, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp);
+
+void store_data_senseBody(string &senseBody_message, Player &player);
+
+
