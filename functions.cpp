@@ -176,13 +176,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
         player.see_opponent_goal = false;
     }
 
-
-
-
     for (size_t i = 0; i < see_message.size(); i++)
     {
         // Search for the ball
-        if (see_message[i].find("(b)")!=string::npos)
+        if (see_message[i].find("(b)") != string::npos)
         {
             player.see_ball = true;
             ball_coords = separate_string_separator(see_message[i], " ");
@@ -195,10 +192,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             // Calculate the angle to the ball
             double angle = atan2(stod(ball.y), stod(ball.x));
             ball.angle = angle * 180 / M_PI;
-        } 
+        }
 
         // Search for the right goal
-        if (see_message[i].find("(g r)")!=string::npos)
+        if (see_message[i].find("(g r)") != string::npos)
         {
             cout << "The player sees the right goal" << endl;
             vector<string> goal_coords = separate_string_separator(see_message[i], " ");
@@ -221,7 +218,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
         }
 
         // Search for the left goal
-        if (see_message[i].find("(g l)")!=string::npos)
+        if (see_message[i].find("(g l)") != string::npos)
         {
             cout << "The player sees the left goal" << endl;
             vector<string> goal_coords = separate_string_separator(see_message[i], " ");
@@ -252,10 +249,10 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             field.flag_center = {stof(center_coords[2]), stof(center_coords[3])};
             cout << "Center flag coordinates: " << field.flag_center[0] << " " << field.flag_center[1] << endl;
         }
-        if (player.zone_name =="(f c)")
-            {
-                player.seeing_zone = true;
-            }
+        if (player.zone_name == "(f c)")
+        {
+            player.seeing_zone = true;
+        }
 
         // Search for the center top flag
         if (see_message[i].find("(f c t)") != string::npos)
@@ -263,7 +260,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> center_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_center_top = {stof(center_top_coords[3]), stof(center_top_coords[4])};
             player.flags_seen++;
-            if (player.zone_name =="(f c t)")
+            if (player.zone_name == "(f c t)")
             {
                 player.seeing_zone = true;
             }
@@ -275,7 +272,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> center_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_center_bottom = {stof(center_bottom_coords[3]), stof(center_bottom_coords[4])};
             player.flags_seen++;
-            if (player.zone_name =="(f c b)")
+            if (player.zone_name == "(f c b)")
             {
                 player.seeing_zone = true;
             }
@@ -287,7 +284,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> left_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_left_top = {stof(left_top_coords[3]), stof(left_top_coords[4])};
             player.flags_seen++;
-            if (player.zone_name =="(f l t)")
+            if (player.zone_name == "(f l t)")
             {
                 player.seeing_zone = true;
             }
@@ -299,7 +296,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> left_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_left_bottom = {stof(left_bottom_coords[3]), stof(left_bottom_coords[4])};
             player.flags_seen++;
-            if (player.zone_name =="(f l b)")
+            if (player.zone_name == "(f l b)")
             {
                 player.seeing_zone = true;
             }
@@ -311,7 +308,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> right_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_right_top = {stof(right_top_coords[3]), stof(right_top_coords[4])};
             player.flags_seen++;
-            if (player.zone_name =="(f r t)")
+            if (player.zone_name == "(f r t)")
             {
                 player.seeing_zone = true;
             }
@@ -323,7 +320,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> right_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_right_bottom = {stof(right_bottom_coords[3]), stof(right_bottom_coords[4])};
             player.flags_seen++;
-            if (player.zone_name =="(f r b)")
+            if (player.zone_name == "(f r b)")
             {
                 player.seeing_zone = true;
             }
@@ -335,7 +332,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> penalty_left_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_penalty_left_top = {stof(penalty_left_top_coords[4]), stof(penalty_left_top_coords[5])};
             player.flags_seen++;
-            if (player.zone_name =="(f p l t)")
+            if (player.zone_name == "(f p l t)")
             {
                 player.seeing_zone = true;
             }
@@ -347,7 +344,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> penalty_left_center_coords = separate_string_separator(see_message[i], " ");
             field.flag_penalty_left_center = {stof(penalty_left_center_coords[4]), stof(penalty_left_center_coords[5])};
             player.flags_seen++;
-            if (player.zone_name =="(f p l c)")
+            if (player.zone_name == "(f p l c)")
             {
                 player.seeing_zone = true;
             }
@@ -359,7 +356,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> penalty_left_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_penalty_left_bottom = {stof(penalty_left_bottom_coords[4]), stof(penalty_left_bottom_coords[5])};
             player.flags_seen++;
-            if (player.zone_name =="(f p l b)")
+            if (player.zone_name == "(f p l b)")
             {
                 player.seeing_zone = true;
             }
@@ -371,7 +368,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> penalty_right_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_penalty_right_top = {stof(penalty_right_top_coords[4]), stof(penalty_right_top_coords[5])};
             player.flags_seen++;
-            if (player.zone_name =="(f p r t)")
+            if (player.zone_name == "(f p r t)")
             {
                 player.seeing_zone = true;
             }
@@ -383,7 +380,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> penalty_right_center_coords = separate_string_separator(see_message[i], " ");
             field.flag_penalty_right_center = {stof(penalty_right_center_coords[4]), stof(penalty_right_center_coords[5])};
             player.flags_seen++;
-            if (player.zone_name =="(f p r c)")
+            if (player.zone_name == "(f p r c)")
             {
                 player.seeing_zone = true;
             }
@@ -395,19 +392,19 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> penalty_right_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_penalty_right_bottom = {stof(penalty_right_bottom_coords[4]), stof(penalty_right_bottom_coords[5])};
             player.flags_seen++;
-            if (player.zone_name =="(f p r b)")
+            if (player.zone_name == "(f p r b)")
             {
                 player.seeing_zone = true;
             }
         }
-    
+
         // Search for the goal left top flag
         if (see_message[i].find("(f g l t)") != string::npos)
         {
             vector<string> goal_left_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_goal_left_top = {stof(goal_left_top_coords[4]), stof(goal_left_top_coords[5])};
             player.flags_seen++;
-            if (player.zone_name =="(f g l t)")
+            if (player.zone_name == "(f g l t)")
             {
                 player.seeing_zone = true;
             }
@@ -419,7 +416,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> goal_left_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_goal_left_bottom = {stof(goal_left_bottom_coords[4]), stof(goal_left_bottom_coords[5])};
             player.flags_seen++;
-            if (player.zone_name =="(f g l b)")
+            if (player.zone_name == "(f g l b)")
             {
                 player.seeing_zone = true;
             }
@@ -431,7 +428,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> goal_right_top_coords = separate_string_separator(see_message[i], " ");
             field.flag_goal_right_top = {stof(goal_right_top_coords[4]), stof(goal_right_top_coords[5])};
             player.flags_seen++;
-            if (player.zone_name =="(f g r t)")
+            if (player.zone_name == "(f g r t)")
             {
                 player.seeing_zone = true;
             }
@@ -443,7 +440,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             vector<string> goal_right_bottom_coords = separate_string_separator(see_message[i], " ");
             field.flag_goal_right_bottom = {stof(goal_right_bottom_coords[4]), stof(goal_right_bottom_coords[5])};
             player.flags_seen++;
-            if (player.zone_name =="(f g r b)")
+            if (player.zone_name == "(f g r b)")
             {
                 player.seeing_zone = true;
             }
@@ -659,7 +656,7 @@ string dash(double power, double angle)
     return dash_command;
 }
 
-void store_data_hear(string &hear_message) //(hear 0 referee kick_off_l)  
+void store_data_hear(string &hear_message) //(hear 0 referee kick_off_l)
 {
     vector<string> aux_hear_message = separate_string(hear_message); // hear 0 referee kick_off_l
     vector<string> valores_mensaje_Hear;
@@ -677,60 +674,66 @@ void store_data_hear(string &hear_message) //(hear 0 referee kick_off_l)
 
 void chutarPorteria(Player &player, Ball &ball, Goal &opponent_goal, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp)
 {
-    if (ball.distance<1){
-    float angle = opponent_goal.angle; // Ángulo hacia la portería contraria
-    int power = 100; // Potencia del chute
-    std::string kick_command = "(kick " + to_string(power) + " " + to_string(angle) + ")";
-    udp_socket.sendTo(kick_command, server_udp); // Enviar comando de chute}
+    if (ball.distance < 1)
+    {
+        float angle = opponent_goal.angle; // Ángulo hacia la portería contraria
+        int power = 100;                   // Potencia del chute
+        std::string kick_command = "(kick " + to_string(power) + " " + to_string(angle) + ")";
+        udp_socket.sendTo(kick_command, server_udp); // Enviar comando de chute}
     }
-    else{
+    else
+    {
         int i = 0;
-                    if (abs(ball.angle) >= 10)
-                    {
-                        int division = 1;
-                        if (ball.distance < 6)
-                        {
-                            division = 50;
-                        }
-                        else
-                        {
-                            division = 5;
-                        }
-                        // Rotate the player to the ball
-                        std::string rotate_command = "(turn " + to_string(ball.angle / division) + ")";
-                        udp_socket.sendTo(rotate_command, server_udp);
-                    }
+        if (abs(ball.angle) >= 10)
+        {
+            int division = 1;
+            if (ball.distance < 6)
+            {
+                division = 50;
+            }
+            else
+            {
+                division = 5;
+            }
+            // Rotate the player to the ball
+            std::string rotate_command = "(turn " + to_string(ball.angle / division) + ")";
+            udp_socket.sendTo(rotate_command, server_udp);
+        }
 
-                    else
-                    {
-                        int power = 100;
-                        if (ball.distance < 3)
-                        {
-                            power = 60;
-                        }
-                        else if (ball.distance < 7)
-                        {
-                            power = 80;
-                        }
-                        // In this moment, the player should be looking to the ball
-                        // Create the dash command
-                        std::string dash_command = "(dash " + to_string(power) + " 0)";
-                        udp_socket.sendTo(dash_command, server_udp);
-                    }
+        else
+        {
+            int power = 100;
+            if (ball.distance < 3)
+            {
+                power = 60;
+            }
+            else if (ball.distance < 7)
+            {
+                power = 80;
+            }
+            // In this moment, the player should be looking to the ball
+            // Create the dash command
+            std::string dash_command = "(dash " + to_string(power) + " 0)";
+            udp_socket.sendTo(dash_command, server_udp);
+        }
     }
 }
 
-void pasar(Player &player, Ball &ball, Goal &opponent_goal, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp){
-    float angle=0;
-    int power=100;
+void pasar(Player &player, Ball &ball, Goal &opponent_goal, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp)
+{
+    float angle = 0;
+    int power = 100;
     std::string kick_command = "(kick " + to_string(power) + " " + to_string(angle) + ")";
     udp_socket.sendTo(kick_command, server_udp); // Enviar comando de chute
 }
 
-int procesarJugadoresVisibles(vector<string> see_message, Player player) {
-    vector<JugadorCercano> jugadores_visibles={};
-    for (auto &obj : see_message) {
-        if (obj.find("(p") != string::npos && obj.find("(p)") == string::npos) {
+int procesarJugadoresVisibles(vector<string> see_message, Player player)
+{
+    vector<JugadorCercano> jugadores_visibles = {};
+    for (auto &obj : see_message)
+    {
+        if (obj.find("(p") != string::npos && obj.find("(p)") == string::npos)
+        {
             vector<string> player_info = separate_string_separator(obj, " ");
             JugadorCercano jugador;
             jugador.nombreEquipo = player_info[1];
@@ -738,13 +741,17 @@ int procesarJugadoresVisibles(vector<string> see_message, Player player) {
             jugador.distancia = player_info[3];
 
             // Al sacar el dorsal se deja detrás del número ")"
-            //Eliminamos el último carácter si es un paréntesis ')'
-            if (!jugador.dorsal.empty() && jugador.dorsal.back() == ')') {
+            // Eliminamos el último carácter si es un paréntesis ')'
+            if (!jugador.dorsal.empty() && jugador.dorsal.back() == ')')
+            {
                 jugador.dorsal.pop_back(); // Eliminar el último carácter
             }
-            if(jugador.nombreEquipo == player.team_name){
-                cout<<endl<<endl<<endl;
-                jugadores_visibles.push_back(jugador); //algo no va bien porque los ve todos, creo que nombre equipo no va bien
+            if (jugador.nombreEquipo == player.team_name)
+            {
+                cout << endl
+                     << endl
+                     << endl;
+                jugadores_visibles.push_back(jugador); // algo no va bien porque los ve todos, creo que nombre equipo no va bien
             }
             jugadores_visibles.push_back(jugador);
         }
@@ -752,16 +759,18 @@ int procesarJugadoresVisibles(vector<string> see_message, Player player) {
     return jugadores_visibles.size();
 }
 
-void mostrarJugadoresVisibles(const vector<JugadorCercano> &jugadores_visibles) {
+void mostrarJugadoresVisibles(const vector<JugadorCercano> &jugadores_visibles)
+{
     std::cout << "Jugadores visibles: " << std::endl;
-    for (const auto &jugador : jugadores_visibles) {
-        std::cout << "Nombre Equipo: " << jugador.nombreEquipo << std::endl; //Nombre del equipo
-        std::cout << "Dorsal: " << jugador.dorsal << std::endl; //Dorsal
-        std::cout << "Distancia: " << jugador.distancia << std::endl; //Distancia
+    for (const auto &jugador : jugadores_visibles)
+    {
+        std::cout << "Nombre Equipo: " << jugador.nombreEquipo << std::endl; // Nombre del equipo
+        std::cout << "Dorsal: " << jugador.dorsal << std::endl;              // Dorsal
+        std::cout << "Distancia: " << jugador.distancia << std::endl;        // Distancia
     }
 }
 
-void configurePlayer(Player &player) //la  mitad de los jugadores de la derecha no estan en zona al iniciar
+void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha no estan en zona al iniciar
 {
     vector<Posicion>
         posiciones = {{-50, 0},
@@ -775,34 +784,34 @@ void configurePlayer(Player &player) //la  mitad de los jugadores de la derecha 
                       {-5, 0},
                       {-15, 0},
                       {-8, -20}};
-                      
-    const std::vector<Posicion> flags_config = 
-    {
-        {0, 0},        // Center of the field
-        {0, -33.5},       // Top center
-        {0, 33.5},       // Bottom center
-        {-52.5, -33.5},    // Corner top-left
-        {-52.5, 33.5},     // Corner bottom-left
-        {52.5, -33.5},     // Corner top-right
-        {52.5, 33.5},      // Corner bottom-right
-        {-36, -20},        // Penalty top-left
-        {-36, 0},           // Penalty center-left
-        {-36, 20},         // Penalty bottom-left
-        {36, -20},         // Penalty top-right
-        {36, 0},           // Penalty center-right
-        {36, 20},          // Penalty bottom-right
-        {-52.5, -7.32},    // Goal top-left
-        {-52.5, 7.32},     // Goal bottom-left
-        {52.5, -7.32},     // Goal top-right
-        {52.5, 7.32}       // Goal bottom-right
-    };
+
+    const std::vector<Posicion> flags_config =
+        {
+            {0, 0},         // Center of the field
+            {0, -33.5},     // Top center
+            {0, 33.5},      // Bottom center
+            {-52.5, -33.5}, // Corner top-left
+            {-52.5, 33.5},  // Corner bottom-left
+            {52.5, -33.5},  // Corner top-right
+            {52.5, 33.5},   // Corner bottom-right
+            {-36, -20},     // Penalty top-left 7
+            {-36, 0},       // Penalty center-left
+            {-36, 20},      // Penalty bottom-left 9
+            {36, -20},      // Penalty top-right
+            {36, 0},        // Penalty center-right
+            {36, 20},       // Penalty bottom-right
+            {-52.5, -7.32}, // Goal top-left
+            {-52.5, 7.32},  // Goal bottom-left
+            {52.5, -7.32},  // Goal top-right 15
+            {52.5, 7.32}    // Goal bottom-right 16
+        };
     if (player.unum == 1)
     {
-        if (player.side=="r")
+        if (player.side == "r")
         {
             player.rol = "PORTERO";
             player.range = 15;
-            player.zone = {50,0};
+            player.zone = {50, 0};
             player.zone_name = "goalkeeper"; // Does not apply
         }
         else
@@ -815,83 +824,173 @@ void configurePlayer(Player &player) //la  mitad de los jugadores de la derecha 
     }
     else if (player.unum == 3)
     {
-        player.rol = "DEFENSA";
-        player.range = 20;
-        player.zone = flags_config[7];
-        player.zone_name = "(f " + player.side + " t)";
+        if (player.side == "r")
+        {
+            player.rol = "DEFENSA";
+            player.range = 25;
+            player.zone = {50, 20};
+            player.zone_name = "(f " + player.side + " t)";
+        }
+        else
+        {
+            player.rol = "DEFENSA";
+            player.range = 25;
+            player.zone = {-50,-20};
+            player.zone_name = "(f " + player.side + " t)";
+        }
     }
     else if (player.unum == 5)
     {
-        player.rol = "DEFENSA";
-        player.range = 20;
-        player.zone = flags_config[9];
-        player.zone_name = "(f " + player.side + " b)";
+        if (player.side == "r")
+        {
+            player.rol = "DEFENSA";
+            player.range = 25;
+            player.zone = {50, -20};
+            player.zone_name = "(f " + player.side + " b)";
+        }
+        else
+        {
+            player.rol = "DEFENSA";
+            player.range = 25;
+            player.zone = {-30,30};
+            player.zone_name = "(f " + player.side + " b)";
+        }
     }
     else if (player.unum == 2)
     {
-        player.rol = "DEFENSA";
-        player.range = 20;
-        player.zone = posiciones[player.unum - 1];
-        player.zone_name = "(f p " + player.side + " t)";
+        if (player.side == "r")
+        {
+            player.rol = "DEFENSA";
+            player.range = 25;
+            player.zone = {50, 10};
+            player.zone_name = "(f " + player.side + " t)";
+        }
+        else
+        {
+            player.rol = "DEFENSA";
+            player.range = 25;
+            player.zone = {-50,-10};
+            player.zone_name = "(f p " + player.side + " t)";
+        }
     }
     else if (player.unum == 4)
     {
-        player.rol = "DEFENSA";
-        player.range = 20;
-        player.zone = posiciones[player.unum - 1];
-        player.zone_name = "(f p " + player.side + " b)";
+        if (player.side == "r")
+        {
+            player.rol = "DEFENSA";
+            player.range = 25;
+            player.zone = {50, -10};
+            player.zone_name = "(f p " + player.side + " b)";
+        }
+        else
+        {
+            player.rol = "DEFENSA";
+            player.range = 25;
+            player.zone = {-35,20};
+            player.zone_name = "(f p " + player.side + " b)";
+        }
     }
     else if (player.unum == 8)
     {
-        player.rol = "DEFENSA";
-        player.range = 30;
-        player.zone = flags_config[0];
-        player.zone_name = "(f p " + player.side + " t)";
+        if (player.side == "r")
+        {
+            player.rol = "DEFENSA";
+            player.range = 35;
+            player.zone = {15, 25};
+            player.zone_name = "(f p " + player.side + " t)";
+        }
+        else
+        {
+            player.rol = "DEFENSA";
+            player.range = 35;
+            player.zone = {-30, -20};
+            player.zone_name = "(f p " + player.side + " t)";
+        }
     }
     else if (player.unum == 6)
     {
-        player.rol = "DEFENSA";
-        player.range = 30;
-        player.zone = flags_config[2];
-        player.zone_name = "(f p " + player.side + " b)";
+        if (player.side == "r")
+        {
+            player.rol = "DEFENSA";
+            player.range = 35;
+            player.zone = {30, -10};
+            player.zone_name = "(f p " + player.side + " b)";
+        }
+        else
+        {
+            player.rol = "DEFENSA";
+            player.range = 35;
+            player.zone = {-15,20};
+            player.zone_name = "(f p " + player.side + " b)";
+        }
     }
     else if (player.unum == 9)
     {
-        if (player.side == "l")
+        if (player.side == "r")
         {
             player.rol = "DELANTERO";
-            player.range = 20;
-            player.zone = flags_config[1];
+            player.range = 25;
+            player.zone = {10, 0};
             player.zone_name = "(f p r c)";
         }
         else
         {
             player.rol = "DELANTERO";
-            player.range = 20;
-            player.zone = flags_config[1];
+            player.range = 25;
+            player.zone = {-10, 0};
             player.zone_name = "(f p l c)";
         }
     }
-    else if (player.unum ==10)
+    else if (player.unum == 10)
     {
-        player.rol = "DELANTERO";
-        player.range = 15;
-        player.zone = posiciones[player.unum - 1];
-        player.zone_name = "(f c)";
+        if (player.side == "r")
+        {
+            player.rol = "DELANTERO";
+            player.range = 20;
+            player.zone = {20, 0};
+            player.zone_name = "(f c)";
+        }
+        else
+        {
+            player.rol = "DELANTERO";
+            player.range = 20;
+            player.zone = posiciones[player.unum - 1];
+            player.zone_name = "(f c)";
+        }
     }
     else if (player.unum == 7)
     {
-        player.rol = "DELANTERO";
-        player.range = 25;
-        player.zone = flags_config[12];
-        player.zone_name = "(f c b)";
+        if (player.side == "r")
+        {
+            player.rol = "DELANTERO";
+            player.range = 30;
+            player.zone = {10, -20};
+            player.zone_name = "(f c b)";
+        }
+        else
+        {
+            player.rol = "DELANTERO";
+            player.range = 30;
+            player.zone = {-15,20};
+            player.zone_name = "(f c b)";
+        }
     }
     else if (player.unum == 11)
     {
-        player.rol = "DELANTERO";
-        player.range = 25;
-        player.zone = flags_config[10];
-        player.zone_name = "(f c t)";
+        if (player.side == "r")
+        {
+            player.rol = "DELANTERO";
+            player.range = 30;
+            player.zone = {10, 25};
+            player.zone_name = "(f c t)";
+        }
+        else
+        {
+            player.rol = "DELANTERO";
+            player.range = 30;
+            player.zone = {-10,-20};
+            player.zone_name = "(f c t)";
+        }
     }
     else
     {
@@ -904,7 +1003,7 @@ void configurePlayer(Player &player) //la  mitad de los jugadores de la derecha 
 
 string returnToZone(Player const &player)
 {
-    //cout << "Not in zone" << endl; esto es mentira
+    // cout << "Not in zone" << endl; esto es mentira
     if (player.seeing_zone == false)
     {
         std::string rotate_command = "(turn " + to_string(50) + ")";
@@ -922,63 +1021,38 @@ string returnToZone(Player const &player)
             std::string dash_command = "(dash 100 0)";
             return dash_command;
         }
-        
     }
-    //el portero no sabe volver porque no tiene flag
+    // el portero no sabe volver porque no tiene flag
 }
 
 void imInZone(Player &player)
 {
-    player.distancia_a_zona= sqrt(pow(player.x - player.zone.x, 2) + pow(player.y - player.zone.y, 2));
+    player.distancia_a_zona = sqrt(pow(player.x - player.zone.x, 2) + pow(player.y - player.zone.y, 2));
     if (player.x - player.zone.x < abs(player.range) && player.y - player.zone.y < abs(player.range))
     {
-        player.in_zone=true;
+        player.in_zone = true;
     }
     else
     {
-        player.in_zone=false;
+        player.in_zone = false;
     }
 }
 
 void store_data_senseBody(string &senseBody_message, Player &player) //(sense_body 313 (view_mode high normal) (stamina 7985 1 126795))
 {
-    vector<string> parse_message = separate_string(senseBody_message); //sense_body 313 (view_mode high normal) (stamina 7985 1 126795)
-    vector<string> valores;   
-        if (parse_message[0].find("sense_body") != string::npos)
-        {   vector<string> senseBodu_message = separate_string(parse_message[0]);
+    vector<string> parse_message = separate_string(senseBody_message); // sense_body 313 (view_mode high normal) (stamina 7985 1 126795)
+    vector<string> valores;
+    if (parse_message[0].find("sense_body") != string::npos)
+    {
+        vector<string> senseBodu_message = separate_string(parse_message[0]);
 
-             for (size_t i = 0; i < senseBodu_message.size(); i++)
+        for (size_t i = 0; i < senseBodu_message.size(); i++)
+        {
+            if (senseBodu_message[1].find("stamina") != string::npos)
             {
-                 if (senseBodu_message[1].find("stamina") != string::npos)
-                {       valores = separate_string_separator(senseBodu_message[1], " ");
-                        player.stamina = stof(valores[1]);
-                     }
-             }
+                valores = separate_string_separator(senseBodu_message[1], " ");
+                player.stamina = stof(valores[1]);
+            }
         }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
