@@ -727,8 +727,8 @@ void pasar(Player &player, Ball &ball, Goal &opponent_goal, MinimalSocket::udp::
     udp_socket.sendTo(kick_command, server_udp); // Enviar comando de chute
 }
 
-int procesarJugadoresVisibles(vector<string> see_message) {
-    vector<JugadorCercano> jugadores_visibles;
+int procesarJugadoresVisibles(vector<string> see_message, Player player) {
+    vector<JugadorCercano> jugadores_visibles={};
     for (auto &obj : see_message) {
         if (obj.find("(p") != string::npos && obj.find("(p)") == string::npos) {
             vector<string> player_info = separate_string_separator(obj, " ");
@@ -742,7 +742,10 @@ int procesarJugadoresVisibles(vector<string> see_message) {
             if (!jugador.dorsal.empty() && jugador.dorsal.back() == ')') {
                 jugador.dorsal.pop_back(); // Eliminar el último carácter
             }
-
+            if(jugador.nombreEquipo == player.team_name){
+                cout<<endl<<endl<<endl;
+                jugadores_visibles.push_back(jugador); //algo no va bien porque los ve todos, creo que nombre equipo no va bien
+            }
             jugadores_visibles.push_back(jugador);
         }
     }
@@ -758,8 +761,7 @@ void mostrarJugadoresVisibles(const vector<JugadorCercano> &jugadores_visibles) 
     }
 }
 
-
-void configurePlayer(Player &player)
+void configurePlayer(Player &player) //la  mitad de los jugadores de la derecha no estan en zona al iniciar
 {
     vector<Posicion>
         posiciones = {{-50, 0},
@@ -796,10 +798,20 @@ void configurePlayer(Player &player)
     };
     if (player.unum == 1)
     {
-        player.rol = "PORTERO";
-        player.range = 10;
-        player.zone = posiciones[player.unum - 1];
-        player.zone_name = "goalkeeper"; // Does not apply
+        if (player.side=="r")
+        {
+            player.rol = "PORTERO";
+            player.range = 15;
+            player.zone = {50,0};
+            player.zone_name = "goalkeeper"; // Does not apply
+        }
+        else
+        {
+            player.rol = "PORTERO";
+            player.range = 15;
+            player.zone = posiciones[player.unum - 1];
+            player.zone_name = "goalkeeper"; // Does not apply
+        }
     }
     else if (player.unum == 3)
     {
@@ -912,12 +924,13 @@ string returnToZone(Player const &player)
         }
         
     }
+    //el portero no sabe volver porque no tiene flag
 }
 
 void imInZone(Player &player)
 {
     player.distancia_a_zona= sqrt(pow(player.x - player.zone.x, 2) + pow(player.y - player.zone.y, 2));
-    if (player.x - player.zone.x < player.range && player.y - player.zone.y < player.range)
+    if (player.x - player.zone.x < abs(player.range) && player.y - player.zone.y < abs(player.range))
     {
         player.in_zone=true;
     }

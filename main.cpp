@@ -231,6 +231,7 @@ int main(int argc, char *argv[])
 
     configurePlayer(player);
 
+
     // Configure the goals
     if (player.side == "r")
     {
@@ -255,7 +256,7 @@ int main(int argc, char *argv[])
         vector<string> parsed_message = separate_string(received_message_content);
         imInZone(player);
         store_data_senseBody(received_message_content,player);
-
+        cout <<"distance to zone"<<player.distancia_a_zona<<endl;
         // Search for see message
         if (parsed_message[0].find("see") <= 5)
         {
