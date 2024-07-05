@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <cmath>
 #include <MinimalSocket/udp/UdpSocket.h>
+#include <thread> 
 using namespace std;
 
 // Include headers
@@ -1055,4 +1056,142 @@ void store_data_senseBody(string &senseBody_message, Player &player) //(sense_bo
             }
         }
     }
+}
+
+void store_data_hear(string &hear_message, Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp)
+{
+    vector<string> aux_hear_message = separate_string(hear_message); // hear 0 referee kick_off_l
+    vector<string> valores_mensaje_Hear;
+
+    for (size_t i = 0; i < aux_hear_message.size(); i++)
+    {
+        if (aux_hear_message[i].find("hear") != string::npos)
+        {
+            valores_mensaje_Hear = separate_string_separator(aux_hear_message[i], " ");
+            if (valores_mensaje_Hear.size() >= 4)
+            {
+                cout << "TIME: " << valores_mensaje_Hear[1] << endl;
+                cout << "REFEREE: " << valores_mensaje_Hear[2] << endl;
+                cout << "MODO: " << valores_mensaje_Hear[3] << endl;
+
+                string modo = valores_mensaje_Hear[3];
+                handle_game_mode(modo, player, udp_socket, server_udp);
+            }
+            else
+            {
+                cout << "Error: mensaje 'hear' no tiene suficientes elementos: " << aux_hear_message[i] << " (size: " << valores_mensaje_Hear.size() << ")" << endl;
+                for (size_t j = 0; j < valores_mensaje_Hear.size(); j++) {
+                    cout << "Elemento " << j << ": " << valores_mensaje_Hear[j] << endl;
+                }
+            }
+        }
+    }
+}
+
+void orientarJugadorHaciaCampo(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp)
+{
+    // Supongamos que queremos orientar al jugador hacia el centro del campo (0, 0)
+    float target_x = 0.0;
+    float target_y = 0.0;
+
+    float angle_to_target = atan2(target_y - player.y, target_x - player.x) * 180 / M_PI;
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::string turn_command = "(turn " + std::to_string(angle_to_target - player.angle) + ")";
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    udp_socket.sendTo(turn_command, server_udp);
+
+    //std::this_thread::sleep_for(std::chrono::milliseconds(100)); // Esperar un poco para que el jugador termine de girar
+}
+
+
+
+void handle_game_mode(const string &modo, Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp)
+{
+    cout << "Handle game mode: " << modo << endl;  
+    if (modo == "kick_off_l" || modo == "kick_off_r")
+    {
+        cout << "Saque inicial: " << modo << endl;
+    }
+    else if (modo == "free_kick_l" || modo == "free_kick_r")
+    {
+        cout << "Tiro libre: " << modo << endl;
+        execute_free_kick(player, udp_socket, server_udp); 
+    }
+    else if (modo == "goal_kick_l" || modo == "goal_kick_r")
+    {
+        cout << "Saque de puerta: " << modo << endl;
+        execute_goal_kick(player, udp_socket, server_udp); // Portero (jugador 1)
+    }
+    else if (modo == "corner_kick_l" || modo == "corner_kick_r")
+    {
+        cout << "Saque de esquina: " << modo << endl;
+        execute_corner_kick(player, udp_socket, server_udp);
+    }
+    else if (modo == "throw_in_l" || modo == "throw_in_r")
+    {
+        cout << "Saque de banda: " << modo << endl;
+        execute_throw_in(player, udp_socket, server_udp);
+    }
+    else if (modo == "offside_l" || modo == "offside_r")
+    {
+        cout << "Fuera de juego: " << modo << endl;
+    }
+    else if (modo == "goal_l" || modo == "goal_r")
+    {
+        cout << "Gol: " << modo << endl;
+    }
+    else if (modo == "play_on")
+    {
+        cout << "Juego en curso" << endl;
+    }
+    else if (modo == "time_over")
+    {
+        cout << "Fin del tiempo de juego" << endl;
+    }
+    else
+    {
+        cout << "Modo desconocido: " << modo << endl;
+    }
+}
+
+void execute_goal_kick(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp)
+{
+    if (player.unum != 1) {
+        cout << "Jugador " << player.unum << " no está autorizado para ejecutar saque de puerta" << endl;
+        return;
+    }
+
+    std::string command = "(kick 100 0)";
+    udp_socket.sendTo(command, server_udp);
+    cout << "Jugador " << player.unum << " ejecuta saque de puerta con potencia 100" << endl;
+}
+
+void execute_corner_kick(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp)
+{
+    // Orientar al jugador hacia el campo
+    orientarJugadorHaciaCampo(player, udp_socket, server_udp);
+
+    // Después de orientar al jugador, ejecutar el saque
+    std::string command = "(kick 50 0)"; // Ajustar la potencia y dirección según sea necesario
+    udp_socket.sendTo(command, server_udp);
+    std::cout << "Jugador " << player.unum << " ejecuta saque de esquina con potencia 50 y dirección hacia el campo" << std::endl;
+}
+
+void execute_throw_in(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp)
+{
+    // Orientar al jugador hacia el campo
+    orientarJugadorHaciaCampo(player, udp_socket, server_udp);
+
+    // Después de orientar al jugador, ejecutar el saque
+    std::string command = "(kick 50 0)"; // Ajustar la potencia y dirección según sea necesario
+    udp_socket.sendTo(command, server_udp);
+    std::cout << "Jugador " << player.unum << " ejecuta saque de banda con potencia 50 y dirección hacia el campo" << std::endl;
+}
+
+
+void execute_free_kick(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp)
+{
+    std::string command = "(kick 100 0)";
+    udp_socket.sendTo(command, server_udp);
+    cout << "Jugador " << player.unum << " ejecuta falta con potencia 100" << endl;
 }

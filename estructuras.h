@@ -35,6 +35,7 @@ struct Player
     bool in_zone;
     bool OutOfField;
     double distancia_a_zona;
+    double angle;
 };
 
 struct Ball

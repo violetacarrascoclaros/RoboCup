@@ -231,7 +231,6 @@ int main(int argc, char *argv[])
 
     configurePlayer(player);
 
-
     // Configure the goals
     if (player.side == "r")
     {
@@ -255,14 +254,19 @@ int main(int argc, char *argv[])
 
         vector<string> parsed_message = separate_string(received_message_content);
         imInZone(player);
-        store_data_senseBody(received_message_content,player);
-        cout <<"distance to zone"<<player.distancia_a_zona<<endl;
+        store_data_senseBody(received_message_content, player);
         // Search for see message
+        if (parsed_message[0].find("hear") != string::npos)
+            {
+                cout << "Hear message received: " << parsed_message[0] << endl;     // Añadir depuración aquí
+                store_data_hear(parsed_message[0], player, udp_socket, server_udp); // Llamar función para manejar mensaje 'hear'
+            }
         if (parsed_message[0].find("see") <= 5)
         {
             vector<string> see_message = separate_string(parsed_message[0]);
             store_data_see(see_message, player, ball, own_goal, opponent_goal, field);
             // bool in_position = estasentusitio(field, player, own_goal, opponent_goal);
+
 
             // Trilateration
             vector<vector<double>> flags_rel = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom, field.flag_penalty_left_top, field.flag_penalty_left_center, field.flag_penalty_left_bottom, field.flag_penalty_right_top, field.flag_penalty_right_center, field.flag_penalty_right_bottom, field.flag_goal_left_top, field.flag_goal_left_bottom, field.flag_goal_right_top, field.flag_goal_right_bottom};
@@ -349,12 +353,11 @@ int main(int argc, char *argv[])
 
             // Logic of the player
 
-            int mejorAccion = obtenerMejorAccion(player, ball, opponent_goal,see_message);
+            int mejorAccion = obtenerMejorAccion(player, ball, opponent_goal, see_message);
             cout << "Mejor accion: " << mejorAccion << endl;
             cout << "Mejor accion: " << mejorAccion << endl;
-            cout <<"numero"<<player.unum<<endl;
-
-            cout << "En posicion: "<<player.in_zone<<endl;
+            cout << "numero" << player.unum << endl;
+            cout << "En posicion: " << player.in_zone << endl;
 
             switch (mejorAccion)
             {
@@ -429,11 +432,12 @@ int main(int argc, char *argv[])
                 udp_socket.sendTo(returnToZone(player), server_udp);
                 break;
             default:
-                 //search for the ball
-                if (player.see_ball){
-
+                // search for the ball
+                if (player.see_ball)
+                {
                 }
-                else{
+                else
+                {
                     if (player.y < 0)
                     {
                         std::string rotate_command = "(turn " + to_string(-10) + ")";
