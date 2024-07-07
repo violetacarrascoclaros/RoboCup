@@ -36,6 +36,9 @@ struct Player
     bool OutOfField;
     double distancia_a_zona;
     double angle;
+    string playmode_prev;
+    string jugadorMarcaGol;
+
 };
 
 struct Ball

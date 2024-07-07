@@ -256,11 +256,7 @@ int main(int argc, char *argv[])
         imInZone(player);
         store_data_senseBody(received_message_content, player);
         // Search for see message
-        if (parsed_message[0].find("hear") != string::npos)
-            {
-                cout << "Hear message received: " << parsed_message[0] << endl;     // Añadir depuración aquí
-                store_data_hear(parsed_message[0], player, udp_socket, server_udp); // Llamar función para manejar mensaje 'hear'
-            }
+        store_data_hear(received_message_content, player, udp_socket, server_udp);
         if (parsed_message[0].find("see") <= 5)
         {
             vector<string> see_message = separate_string(parsed_message[0]);
@@ -352,13 +348,15 @@ int main(int argc, char *argv[])
             }
 
             // Logic of the player
-
+           
             int mejorAccion = obtenerMejorAccion(player, ball, opponent_goal, see_message);
             cout << "Mejor accion: " << mejorAccion << endl;
             cout << "Mejor accion: " << mejorAccion << endl;
             cout << "numero" << player.unum << endl;
             cout << "En posicion: " << player.in_zone << endl;
 
+
+            funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball);
             switch (mejorAccion)
             {
             case 0:
