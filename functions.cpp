@@ -738,23 +738,20 @@ int procesarJugadoresVisibles(vector<string> see_message, Player player)
             vector<string> player_info = separate_string_separator(obj, " ");
             JugadorCercano jugador;
             jugador.nombreEquipo = player_info[1];
-            jugador.dorsal = player_info[2];
-            jugador.distancia = player_info[3];
-
+            jugador.dorsal = player_info[2];//ESTO NO ES EL FUCKING DORSAL 
+            jugador.distancia = player_info[3];//ESTO NO ES LA PUTA DISTANCIA
+ 
             // Al sacar el dorsal se deja detrás del número ")"
             // Eliminamos el último carácter si es un paréntesis ')'
             if (!jugador.dorsal.empty() && jugador.dorsal.back() == ')')
             {
                 jugador.dorsal.pop_back(); // Eliminar el último carácter
             }
-            if (jugador.nombreEquipo == player.team_name)
+            if (jugador.nombreEquipo.find(player.team_name) != string::npos)
             {
-                cout << endl
-                     << endl
-                     << endl;
+                cout<<"Jugador visible: "<<jugador.nombreEquipo<<" "<<jugador.dorsal<<" "<<jugador.distancia<<endl;
                 jugadores_visibles.push_back(jugador); // algo no va bien porque los ve todos, creo que nombre equipo no va bien
             }
-            jugadores_visibles.push_back(jugador);
         }
     }
     return jugadores_visibles.size();
