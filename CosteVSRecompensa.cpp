@@ -11,7 +11,7 @@
 void calcularCosteYRecompensaIrAPorLaPelota(Player& player, const Ball& ball, const Goal& goal, double& coste, double& recompensa,vector<string> see_message) {
     double distPelota = ball.distance;
     double distPorteria = goal.distance;
-    int jugadoresCerca = procesarJugadoresVisibles(see_message, player);   // numJugadoresCerca(player);
+    int jugadoresCerca = 3;   // numJugadoresCerca(player);
     // Coste base
     coste = 50;
     
@@ -29,9 +29,9 @@ void calcularCosteYRecompensaIrAPorLaPelota(Player& player, const Ball& ball, co
     recompensa = 100 - distPelota; // Mayor recompensa cuanto más cerca de la pelota
 
     // Ajuste si el jugador está fuera del campo
-    if (player.OutOfField) {
-        recompensa = 9999; // Recompensa muy alto si está fuera del campo
-    }
+    // if (player.OutOfField) {
+    //     recompensa = 9999; // Recompensa muy alto si está fuera del campo
+    // }
 
     // Ajuste por rol del jugador
     if (player.rol == "DELANTERO") {
@@ -39,7 +39,7 @@ void calcularCosteYRecompensaIrAPorLaPelota(Player& player, const Ball& ball, co
     } else if (player.rol == "DEFENSA") {
         coste *= 1.2; // Mayor coste para defensas
     } else if (player.rol == "PORTERO") {
-        coste *= 1.5; // Mayor coste para porteros
+        coste *= 2; // Mayor coste para porteros
     }
 
     // Ajuste si el jugador no ve la pelota
@@ -62,7 +62,7 @@ void calcularCosteYRecompensaIrAPorLaPelota(Player& player, const Ball& ball, co
 void calcularCosteYRecompensaPasar(Player& player, const Ball& ball, const Goal& goal, double& coste, double& recompensa,vector<string> see_message) {
     double distPelota = ball.distance;
     double distPorteria = goal.distance;
-    int jugadoresCerca = procesarJugadoresVisibles(see_message, player);    // numJugadoresCerca(player);
+    int jugadoresCerca = 3;    // numJugadoresCerca(player);
     // Coste base
     coste = 50;
     // Recompensa base
@@ -85,7 +85,7 @@ void calcularCosteYRecompensaPasar(Player& player, const Ball& ball, const Goal&
 void calcularCosteYRecompensaChutar(Player& player, const Ball& ball, const Goal& goal, double& coste, double& recompensa,vector<string> see_message) {
     double distPelota = ball.distance;
     double distPorteria = goal.distance;
-    int jugadoresCerca = procesarJugadoresVisibles(see_message, player);    // numJugadoresCerca(player);
+    int jugadoresCerca = 3;    // numJugadoresCerca(player);
     // Coste base
     coste = 50;
     // Recompensa base
@@ -117,11 +117,11 @@ void calcularCosteYRecompensaVolverAZona(Player& player, const Ball& ball, const
     double distPelota = ball.distance;
     double distPorteria = goal.distance;
     double distancia_a_zona=player.distancia_a_zona;
-    int jugadoresCerca = procesarJugadoresVisibles(see_message, player);    // numJugadoresCerca(player);
+    int jugadoresCerca = 3;    // numJugadoresCerca(player);
     // Coste base
     coste = 50;
     // Recompensa base
-    recompensa=100 + distancia_a_zona; // Disminuye cuanto más lejos de zona está
+    recompensa=100 + (2*distancia_a_zona); // Disminuye cuanto más lejos de zona está
     // Ajuste por cercanía a portería
     if (distPorteria < 15) {
         coste *= 3; // Aumenta el coste si está cerca de la portería
@@ -138,7 +138,15 @@ void calcularCosteYRecompensaVolverAZona(Player& player, const Ball& ball, const
     if (player.in_zone) {
         coste *= 500; // Recompensa baja si ya está en la zona
     }
-   
+    //Ajuste por rol
+    if (player.rol == "DELANTERO") {
+        coste *= 1.5; // Mayor coste para delanteros
+    } else if (player.rol == "DEFENSA") {
+        recompensa *= 1.2; // Mayor recompensa para defensas
+    } else if (player.rol == "PORTERO") {
+        recompensa *= 1.5; // Mayor recompensa para porteros
+    }
+   //Ajuste por numero de flags que ve
 }
 void MirarPelota(Player& player, const Ball& ball, const Goal& goal, double& coste, double& recompensa,vector<string> see_message){
     // double distPelota = ball.distance;
@@ -192,7 +200,7 @@ int obtenerMejorAccion(Player& player, const Ball& ball, const Goal& goal,vector
     cout << "Coste y recompensa de chutar: " << resultadoChutar << endl;
     cout << "Coste y recompensa de volver a la zona: " << resultadoVolverAZona << endl;
     cout << "----------------------------------------" << endl;
-    cout <<"numer jugadores cerca: "<<procesarJugadoresVisibles(see_message, player)<<endl;
+    cout <<"numer jugadores cerca: "<<"3"<<endl;
     if (resultadoChutar<=-60&&resultadoPasar<=-60&&resultadoIrAPorPelota<=-60&&resultadoVolverAZona<=-60){
         return 8;
     }

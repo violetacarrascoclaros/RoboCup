@@ -69,6 +69,7 @@ struct JugadorCercano
     std::string nombreEquipo;
     std::string dorsal;
     float distance;
+    float angle;
 };
 
 struct JugadoresAlrededor
