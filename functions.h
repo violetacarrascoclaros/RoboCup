@@ -28,7 +28,7 @@ void store_data_hear(string &hear_message, Player &player, MinimalSocket::udp::U
 
 void chutarPorteria(Player &player, Ball &ball, Goal &opponent_goal, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp);
 
-JugadorCercano procesarJugadoresVisibles(const vector<string> &see_message, const Player &player);
+JugadorCercano procesarJugadoresVisibles(const vector<string> &see_message, Player &player);
 
 void mostrarJugadorMasCercano(const JugadorCercano &jugador_mas_cercano);
 

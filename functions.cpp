@@ -449,208 +449,6 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
     }
 }
 
-// bool estasentusitio(const Field &field, const Player &player, const Goal &own_goal, const Goal &opponent_goal)
-// {
-//     if (player.side == "l")
-//     {
-//         switch (player.unum)
-//         {
-//         case 1:
-//             if ((field.flag_left_top_distance > 27 || field.flag_left_top_distance <= 0.1) &&
-//                 (field.flag_left_bottom_distance > 27 || field.flag_left_bottom_distance <= 0.1) &&
-//                 (opponent_goal.distance > 90 || opponent_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-
-//             break;
-//         case 2:
-//             if ((own_goal.distance > 7 || own_goal.distance <= 0.1) &&
-//                 (field.flag_left_top_distance > 33 || field.flag_left_top_distance <= 0.1) &&
-//                 (field.flag_left_bottom_distance > 14.5 || field.flag_left_bottom_distance <= 0.1) &&
-//                 (field.flag_center_bottom_distance > 42.5 || field.flag_center_bottom_distance <= 0.1) &&
-//                 (opponent_goal.distance > 77.5 || opponent_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 3:
-//             if ((own_goal.distance > 7 || own_goal.distance <= 0.1) &&
-//                 (field.flag_left_bottom_distance > 33 || field.flag_left_bottom_distance <= 0.1) &&
-//                 (field.flag_left_top_distance > 14.5 || field.flag_left_top_distance <= 0.1) &&
-//                 (field.flag_center_top_distance > 30 || field.flag_center_top_distance <= 0.1) &&
-//                 (opponent_goal.distance > 77.5 || opponent_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 4:
-//             if ((own_goal.distance > 17.6 || own_goal.distance <= 0.1) &&
-//                 (field.flag_center_bottom_distance > 54 || field.flag_center_bottom_distance <= 0.1) &&
-//                 (opponent_goal.distance > 61.5 || opponent_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 5:
-//             if ((own_goal.distance > 17.6 || own_goal.distance <= 0.1) &&
-//                 (field.flag_center_top_distance > 54 || field.flag_center_top_distance <= 0.1) &&
-//                 (opponent_goal.distance > 61.5 || opponent_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 6:
-//             if ((own_goal.distance > 8 || own_goal.distance <= 0.1) &&
-//                 (field.flag_left_top_distance > 25 || field.flag_left_top_distance <= 0.1) &&
-//                 (field.flag_center_top_distance > 41.5 || field.flag_center_top_distance <= 0.1) &&
-//                 (opponent_goal.distance > 68.5 || opponent_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 7:
-//             if ((own_goal.distance > 8 || own_goal.distance <= 0.1) &&
-//                 (field.flag_left_bottom_distance > 25 || field.flag_left_bottom_distance <= 0.1) &&
-//                 (field.flag_center_bottom_distance > 20 || field.flag_center_bottom_distance <= 0.1) &&
-//                 (opponent_goal.distance > 60 || opponent_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 8:
-//             if ((own_goal.distance > 35.5 || own_goal.distance <= 0.1) &&
-//                 (field.flag_center_top_distance > 32 || field.flag_center_top_distance <= 0.1) &&
-//                 (field.flag_right_top_distance > 25 || field.flag_right_top_distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 9:
-//             if ((own_goal.distance > 35.5 || own_goal.distance <= 0.1) &&
-//                 (field.flag_center_bottom_distance > 32 || field.flag_center_bottom_distance <= 0.1) &&
-//                 (field.flag_right_bottom_distance > 25 || field.flag_right_bottom_distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 10:
-//             if ((own_goal.distance > 14 || own_goal.distance <= 0.1) &&
-//                 (field.flag_left_top_distance > 35.5 || field.flag_left_top_distance <= 0.1) &&
-//                 (field.flag_left_bottom_distance > 35.5 || field.flag_left_bottom_distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 11:
-//             if ((own_goal.distance > 35.5 || own_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         }
-//     }
-//     else
-//     {
-//         switch (player.unum)
-//         {
-//         case 1:
-//             if ((field.flag_right_top_distance > 27 || field.flag_right_top_distance <= 0.1) &&
-//                 (field.flag_right_bottom_distance > 27 || field.flag_right_bottom_distance <= 0.1) &&
-//                 (opponent_goal.distance > 90 || opponent_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 2:
-//             if ((own_goal.distance > 7 || own_goal.distance <= 0.1) &&
-//                 (field.flag_right_top_distance > 33 || field.flag_right_top_distance <= 0.1) &&
-//                 (field.flag_right_bottom_distance > 14.5 || field.flag_right_bottom_distance <= 0.1) &&
-//                 (field.flag_center_top_distance > 42.5 || field.flag_center_top_distance <= 0.1) &&
-//                 (opponent_goal.distance > 77.5 || opponent_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 3:
-//             if ((own_goal.distance > 7 || own_goal.distance <= 0.1) &&
-//                 (field.flag_right_bottom_distance > 20 || field.flag_right_bottom_distance <= 0.1) &&
-//                 (field.flag_right_top_distance > 14.5 || field.flag_right_top_distance <= 0.1) &&
-//                 (field.flag_center_bottom_distance > 30 || field.flag_center_bottom_distance <= 0.1) &&
-//                 (opponent_goal.distance > 77.5 || opponent_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 4:
-//             if ((own_goal.distance > 17.6 || own_goal.distance <= 0.1) &&
-//                 (field.flag_center_top_distance > 54 || field.flag_center_top_distance <= 0.1) &&
-//                 (opponent_goal.distance > 61.5 || opponent_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 5:
-//             if ((own_goal.distance > 17.6 || own_goal.distance <= 0.1) &&
-//                 (field.flag_center_bottom_distance > 54 || field.flag_center_bottom_distance <= 0.1) &&
-//                 (opponent_goal.distance > 61.5 || opponent_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 6:
-//             if ((own_goal.distance > 8 || own_goal.distance <= 0.1) &&
-//                 (field.flag_right_top_distance > 25 || field.flag_right_top_distance <= 0.1) &&
-//                 (field.flag_center_bottom_distance > 41.5 || field.flag_center_bottom_distance <= 0.1) &&
-//                 (opponent_goal.distance > 68.5 || opponent_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 7:
-//             if ((own_goal.distance > 8 || own_goal.distance <= 0.1) &&
-//                 (field.flag_right_bottom_distance > 25 || field.flag_right_bottom_distance <= 0.1) &&
-//                 (field.flag_center_top_distance > 20 || field.flag_center_top_distance <= 0.1) &&
-//                 (opponent_goal.distance > 60 || opponent_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 8:
-//             if ((own_goal.distance > 35.5 || own_goal.distance <= 0.1) &&
-//                 (field.flag_center_bottom_distance > 32 || field.flag_center_bottom_distance <= 0.1) &&
-//                 (field.flag_left_top_distance > 25 || field.flag_left_top_distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 9:
-//             if ((own_goal.distance > 35.5 || own_goal.distance <= 0.1) &&
-//                 (field.flag_center_bottom_distance > 32 || field.flag_center_bottom_distance <= 0.1) &&
-//                 (field.flag_left_bottom_distance > 25 || field.flag_left_bottom_distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 10:
-//             if ((own_goal.distance > 14 || own_goal.distance <= 0.1) &&
-//                 (field.flag_right_top_distance > 35.5 || field.flag_right_top_distance <= 0.1) &&
-//                 (field.flag_right_bottom_distance > 35.5 || field.flag_right_bottom_distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         case 11:
-//             if ((own_goal.distance > 35.5 || own_goal.distance <= 0.1))
-//             {
-//                 return true;
-//             }
-//             break;
-//         }
-//     }
-//     return false;
-// }
-
 string dash(double power, double angle)
 {
     std::string dash_command = "(dash " + to_string(power) + " " + to_string(angle) + ")";
@@ -742,6 +540,7 @@ void pase(Player &player, Ball &ball,JugadorCercano &jugador, MinimalSocket::udp
 {
     if (ball.distance < 1)
     {
+        cout<<"pasando"<<endl;
         float angle = jugador.angle; // Ángulo hacia la portería contraria
         int power = 50;                   // Potencia del chute
         std::string kick_command = "(kick " + to_string(power) + " " + to_string(angle) + ")";
@@ -762,6 +561,7 @@ void pase(Player &player, Ball &ball,JugadorCercano &jugador, MinimalSocket::udp
                 division = 5;
             }
             // Rotate the player to the ball
+            cout<<"rotando para encontrar el pase"<<endl;
             std::string rotate_command = "(turn " + to_string(ball.angle / division) + ")";
             udp_socket.sendTo(rotate_command, server_udp);
         }
@@ -779,12 +579,12 @@ void pase(Player &player, Ball &ball,JugadorCercano &jugador, MinimalSocket::udp
             }
             // In this moment, the player should be looking to the ball
             // Create the dash command
+            cout<<"corriendo al pase"<<endl;
             std::string dash_command = "(dash " + to_string(power) + " 0)";
             udp_socket.sendTo(dash_command, server_udp);
         }
     }
 }
-
 
 void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha no estan en zona al iniciar
 {
@@ -1106,9 +906,8 @@ void store_data_hear(string &hear_message, Player &player, MinimalSocket::udp::U
         }
     }
 }
-    
 
-JugadorCercano procesarJugadoresVisibles(const vector<string> &see_message, const Player &player)
+JugadorCercano procesarJugadoresVisibles(const vector<string> &see_message, Player &player)
 {
     JugadorCercano jugador_mas_cercano;
     float menor_distancia = std::numeric_limits<float>::max();
@@ -1127,6 +926,7 @@ JugadorCercano procesarJugadoresVisibles(const vector<string> &see_message, cons
             jugador.distancia = player_info[3];
             jugador.angle = stof(player_info[4]); // Convertir el ángulo a float
             jugador.distance = stof(jugador.distancia); // Convertir la distancia a float
+            player.num_jug_cerca=0;
 
             // Eliminar el último carácter si es un paréntesis ')'
             if (!jugador.dorsal.empty() && jugador.dorsal.back() == ')')
@@ -1136,6 +936,7 @@ JugadorCercano procesarJugadoresVisibles(const vector<string> &see_message, cons
                 // Comprobar si el jugador es del mismo equipo
                 if (jugador.nombreEquipo.find(player.team_name) != string::npos)
                 {
+                    player.num_jug_cerca++;
                     // Verificar si es el jugador más cercano
                     if (jugador.distance < menor_distancia)
                     {
@@ -1165,7 +966,6 @@ void mostrarJugadorMasCercano(const JugadorCercano &jugador_mas_cercano)
     std::cout << "Ángulo: " << jugador_mas_cercano.angle << std::endl;
     std::cout << " " << std::endl;
 }
-
 
 void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball &ball)
 {   

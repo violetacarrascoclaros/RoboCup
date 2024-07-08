@@ -361,8 +361,7 @@ int main(int argc, char *argv[])
             funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball);
             switch (mejorAccion)
             {
-            case 0:
-                // Perform go for the ball
+            case 0:  // Perform go for the ball
                 if (player.see_ball)
                 {
                     int i = 0;
@@ -418,17 +417,14 @@ int main(int argc, char *argv[])
                 }
 
                 break;
-            case 1:
-                // Perform pass the ball
+            case 1:  // Perform pass the ball
                 pase(player,ball,jugador_mas_cercano,udp_socket,server_udp);
                 break;
-            case 2:
-                // Perform kick the ball to the goal
+            case 2: // Perform kick the ball to the goal
                 chutarPorteria(player, ball, opponent_goal, udp_socket, server_udp);
                 break;
-            // Add more cases for other actions
-            case 3:
-                // Perform go to the zone
+            case 3:  // Perform go to the zone
+
                 udp_socket.sendTo(returnToZone(player), server_udp);
                 break;
             default:
