@@ -966,7 +966,6 @@ void mostrarJugadorMasCercano(const JugadorCercano &jugador_mas_cercano)
     std::cout << "Nombre Equipo: " << jugador_mas_cercano.nombreEquipo << std::endl;
     std::cout << "Dorsal: " << jugador_mas_cercano.dorsal << std::endl;
     std::cout << "Distancia: " << jugador_mas_cercano.distancia << std::endl;
-    std::cout << "Ángulo: " << jugador_mas_cercano.angle << std::endl;
     std::cout << " " << std::endl;
 }
 
@@ -1026,4 +1025,5 @@ void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp:
             udp_socket.sendTo(returnToZone(player), server_udp);
         }
     }
+
 }
