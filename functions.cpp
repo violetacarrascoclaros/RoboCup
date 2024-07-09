@@ -980,7 +980,54 @@ void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp:
 
     if ((player.playmode == "kick_in_l" && player.side == "l") || (player.playmode == "kick_in_r" && player.side == "r"))
     {
-        if (player.unum == 9)
+        if (player.unum == 11||player.unum==10||player.unum==9)
+        {
+            if (player.see_ball)
+            {
+
+                if (ball.distance < 1)
+                {
+
+                    // Si ve la porteria de nuestro equipo intenta chutar atrás para no automarcarsee
+                    // Se calcula el angulo para chutar hacia porteria del equipo rivalkajh
+                    double angle_away_from_own_goal = 180;
+                    cout << "lo estoy intentando" << endl;
+                    int power = 70; // Le he puesto 100 para alejar la pelota de nuestra área
+                    std::string kick_command = "(kick 60 180)";
+                    udp_socket.sendTo(kick_command, server_udp);
+                }
+                else
+                {
+                    if (abs(ball.angle) >= 10)
+                    {
+                        int division = (ball.distance < 6) ? 20 : 5;
+                        std::string rotate_command = "(turn " + to_string(ball.angle / division) + ")";
+                        udp_socket.sendTo(rotate_command, server_udp);
+                    }
+                    else
+                    {
+                        int power = (ball.distance < 3) ? 60 : (ball.distance < 7) ? 80
+                                                                                   : 100;
+                        std::string dash_command = "(dash " + to_string(power) + " 0)";
+                        udp_socket.sendTo(dash_command, server_udp);
+                    }
+                }
+            }
+            else
+            {
+                int angle = (player.y < 0) ? -80 : 80;
+                std::string rotate_command = "(turn " + to_string(angle) + ")";
+                udp_socket.sendTo(rotate_command, server_udp);
+            }
+        }
+        else
+        {
+            udp_socket.sendTo(returnToZone(player), server_udp);
+        }
+    }
+
+    if ((player.playmode == "corner_kick_r" && player.side == "r") || (player.playmode == "corner_kick_l" && player.side == "l")){
+        if (player.unum == 11||player.unum==10||player.unum==9)
         {
             if (player.see_ball)
             {
