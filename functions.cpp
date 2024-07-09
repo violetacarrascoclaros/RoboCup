@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <cmath>
 #include <MinimalSocket/udp/UdpSocket.h>
-#include <thread> 
+#include <thread>
 using namespace std;
 
 // Include headers
@@ -159,7 +159,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
     field.flag_goal_left_bottom = {999, 999};
     field.flag_goal_right_top = {999, 999};
     field.flag_goal_right_bottom = {999, 999};
-    ball.distance=999;
+    ball.distance = 999;
 
     if (own_goal.side == "l")
     {
@@ -195,7 +195,6 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             double angle = atan2(stod(ball.y), stod(ball.x));
             ball.angle = angle * 180 / M_PI;
         }
-
 
         // Search for the right goal
         if (see_message[i].find("(g r)") != string::npos)
@@ -469,24 +468,24 @@ void store_data_hear(string &hear_message, Player &player, MinimalSocket::udp::U
             cout << "TIME: " << valores_mensaje_Hear[1] << endl;
             cout << "REFEREE: " << valores_mensaje_Hear[2] << endl;
             cout << "MODO: " << valores_mensaje_Hear[3] << endl;
-            player.playmode_prev = player.playmode; //metemos en player el modo de juego anterior
-             std::cout << "MODO ANTERIRO: " << player.playmode_prev << std::endl; 
-            player.playmode = valores_mensaje_Hear[3]; //metemos en player el modo de juego
-             std::cout << "MODO ACTUAL: " << player.playmode << std::endl; 
+            player.playmode_prev = player.playmode; // metemos en player el modo de juego anterior
+            std::cout << "MODO ANTERIRO: " << player.playmode_prev << std::endl;
+            player.playmode = valores_mensaje_Hear[3]; // metemos en player el modo de juego
+            std::cout << "MODO ACTUAL: " << player.playmode << std::endl;
 
-         if (valores_mensaje_Hear[3].find("goal") != string::npos)
-        {
-            // Paso 1: Encontrar la última posición del '_'
-            size_t lastUnderscorePos_L = valores_mensaje_Hear[3].rfind('_');
-             
-            std::string numberStr_L = valores_mensaje_Hear[3].substr(lastUnderscorePos_L + 1); 
-            // std::string numberStr_R = valores_mensaje_Hear[3].substr(lastUnderscorePos_R + 1); 
-            player.jugadorMarcaGol = numberStr_L; 
-            //player.jugadorMarcaGol = numberStr_R; 
-            std::cout << "Número extraído: " << player.jugadorMarcaGol << std::endl; 
-        }
-           
-            //funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball);
+            if (valores_mensaje_Hear[3].find("goal") != string::npos)
+            {
+                // Paso 1: Encontrar la última posición del '_'
+                size_t lastUnderscorePos_L = valores_mensaje_Hear[3].rfind('_');
+
+                std::string numberStr_L = valores_mensaje_Hear[3].substr(lastUnderscorePos_L + 1);
+                // std::string numberStr_R = valores_mensaje_Hear[3].substr(lastUnderscorePos_R + 1);
+                player.jugadorMarcaGol = numberStr_L;
+                // player.jugadorMarcaGol = numberStr_R;
+                std::cout << "Número extraído: " << player.jugadorMarcaGol << std::endl;
+            }
+
+            // funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball);
         }
     }
 }
@@ -538,13 +537,13 @@ void chutarPorteria(Player &player, Ball &ball, Goal &opponent_goal, MinimalSock
     }
 }
 
-void pase(Player &player, Ball &ball,JugadorCercano &jugador, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp)
+void pase(Player &player, Ball &ball, JugadorCercano &jugador, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp)
 {
     if (ball.distance < 1)
     {
-        cout<<"pasando"<<endl;
+        cout << "pasando" << endl;
         float angle = jugador.angle; // Ángulo hacia la portería contraria
-        int power = 50;                   // Potencia del chute
+        int power = 50;              // Potencia del chute
         std::string kick_command = "(kick " + to_string(power) + " " + to_string(angle) + ")";
         udp_socket.sendTo(kick_command, server_udp); // Enviar comando de chute}
     }
@@ -563,7 +562,7 @@ void pase(Player &player, Ball &ball,JugadorCercano &jugador, MinimalSocket::udp
                 division = 5;
             }
             // Rotate the player to the ball
-            cout<<"rotando para encontrar el pase"<<endl;
+            cout << "rotando para encontrar el pase" << endl;
             std::string rotate_command = "(turn " + to_string(ball.angle / division) + ")";
             udp_socket.sendTo(rotate_command, server_udp);
         }
@@ -581,7 +580,7 @@ void pase(Player &player, Ball &ball,JugadorCercano &jugador, MinimalSocket::udp
             }
             // In this moment, the player should be looking to the ball
             // Create the dash command
-            cout<<"corriendo al pase"<<endl;
+            cout << "corriendo al pase" << endl;
             std::string dash_command = "(dash " + to_string(power) + " 0)";
             udp_socket.sendTo(dash_command, server_udp);
         }
@@ -630,14 +629,14 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
             player.rol = "PORTERO";
             player.range = 10;
             player.zone = {50, 0};
-            player.zone_name = "g r"; 
+            player.zone_name = "g r";
         }
         else
         {
             player.rol = "PORTERO";
             player.range = 10;
             player.zone = posiciones[player.unum - 1];
-            player.zone_name = "g l"; 
+            player.zone_name = "g l";
         }
     }
     else if (player.unum == 3)
@@ -653,7 +652,7 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
         {
             player.rol = "DEFENSA";
             player.range = 20;
-            player.zone = {-50,-20};
+            player.zone = {-50, -20};
             player.zone_name = "(f " + player.side + " t)";
         }
     }
@@ -670,7 +669,7 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
         {
             player.rol = "DEFENSA";
             player.range = 20;
-            player.zone = {-30,30};
+            player.zone = {-30, 30};
             player.zone_name = "(f " + player.side + " b)";
         }
     }
@@ -687,7 +686,7 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
         {
             player.rol = "DEFENSA";
             player.range = 20;
-            player.zone = {-50,-10};
+            player.zone = {-50, -10};
             player.zone_name = "(f p " + player.side + " t)";
         }
     }
@@ -704,7 +703,7 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
         {
             player.rol = "DEFENSA";
             player.range = 20;
-            player.zone = {-35,20};
+            player.zone = {-35, 20};
             player.zone_name = "(f p " + player.side + " b)";
         }
     }
@@ -738,7 +737,7 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
         {
             player.rol = "DEFENSA";
             player.range = 30;
-            player.zone = {-15,20};
+            player.zone = {-15, 20};
             player.zone_name = "(f p " + player.side + " b)";
         }
     }
@@ -789,7 +788,7 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
         {
             player.rol = "DELANTERO";
             player.range = 30;
-            player.zone = {-15,20};
+            player.zone = {-15, 20};
             player.zone_name = "(f c b)";
         }
     }
@@ -806,7 +805,7 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
         {
             player.rol = "DELANTERO";
             player.range = 30;
-            player.zone = {-10,-20};
+            player.zone = {-10, -20};
             player.zone_name = "(f c t)";
         }
     }
@@ -846,7 +845,7 @@ string returnToZone(Player const &player)
 void imInZone(Player &player)
 {
     player.distancia_a_zona = sqrt(pow(player.x - player.zone.x, 2) + pow(player.y - player.zone.y, 2));
-    if (player.distancia_a_zona<player.range&&player.flags_seen>=3)
+    if (player.distancia_a_zona < player.range && player.flags_seen >= 3)
     {
         player.in_zone = true;
     }
@@ -887,24 +886,24 @@ void store_data_hear(string &hear_message, Player &player, MinimalSocket::udp::U
             cout << "TIME: " << valores_mensaje_Hear[1] << endl;
             cout << "REFEREE: " << valores_mensaje_Hear[2] << endl;
             cout << "MODO: " << valores_mensaje_Hear[3] << endl;
-            player.playmode_prev = player.playmode; //metemos en player el modo de juego anterior
-             std::cout << "MODO ANTERIRO: " << player.playmode_prev << std::endl; 
-            player.playmode = valores_mensaje_Hear[3]; //metemos en player el modo de juego
-             std::cout << "MODO ACTUAL: " << player.playmode << std::endl; 
+            player.playmode_prev = player.playmode; // metemos en player el modo de juego anterior
+            std::cout << "MODO ANTERIRO: " << player.playmode_prev << std::endl;
+            player.playmode = valores_mensaje_Hear[3]; // metemos en player el modo de juego
+            std::cout << "MODO ACTUAL: " << player.playmode << std::endl;
 
-         if (valores_mensaje_Hear[3].find("goal") != string::npos)
-        {
-            // Paso 1: Encontrar la última posición del '_'
-            size_t lastUnderscorePos_L = valores_mensaje_Hear[3].rfind('_');
-             
-            std::string numberStr_L = valores_mensaje_Hear[3].substr(lastUnderscorePos_L + 1); 
-            // std::string numberStr_R = valores_mensaje_Hear[3].substr(lastUnderscorePos_R + 1); 
-            player.jugadorMarcaGol = numberStr_L; 
-            //player.jugadorMarcaGol = numberStr_R; 
-            std::cout << "Número extraído: " << player.jugadorMarcaGol << std::endl; 
-        }
-           
-            //funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball);
+            if (valores_mensaje_Hear[3].find("goal") != string::npos)
+            {
+                // Paso 1: Encontrar la última posición del '_'
+                size_t lastUnderscorePos_L = valores_mensaje_Hear[3].rfind('_');
+
+                std::string numberStr_L = valores_mensaje_Hear[3].substr(lastUnderscorePos_L + 1);
+                // std::string numberStr_R = valores_mensaje_Hear[3].substr(lastUnderscorePos_R + 1);
+                player.jugadorMarcaGol = numberStr_L;
+                // player.jugadorMarcaGol = numberStr_R;
+                std::cout << "Número extraído: " << player.jugadorMarcaGol << std::endl;
+            }
+
+            // funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball);
         }
     }
 }
@@ -920,15 +919,16 @@ JugadorCercano procesarJugadoresVisibles(const vector<string> &see_message, Play
         {
             string obj_copy = obj; // Hacemos una copia local del string
             vector<string> player_info = separate_string_separator(obj_copy, " ");
-            if (player_info.size() < 5) continue; // Asegurar que hay suficientes elementos
+            if (player_info.size() < 5)
+                continue; // Asegurar que hay suficientes elementos
 
             JugadorCercano jugador;
             jugador.nombreEquipo = player_info[1];
             jugador.dorsal = player_info[2];
             jugador.distancia = player_info[3];
-            jugador.angle = stof(player_info[4]); // Convertir el ángulo a float
+            jugador.angle = stof(player_info[4]);       // Convertir el ángulo a float
             jugador.distance = stof(jugador.distancia); // Convertir la distancia a float
-            player.num_jug_cerca=0;
+            player.num_jug_cerca = 0;
 
             // Eliminar el último carácter si es un paréntesis ')'
             if (!jugador.dorsal.empty() && jugador.dorsal.back() == ')')
@@ -955,7 +955,8 @@ JugadorCercano procesarJugadoresVisibles(const vector<string> &see_message, Play
 
 void mostrarJugadorMasCercano(const JugadorCercano &jugador_mas_cercano)
 {
-    if (jugador_mas_cercano.dorsal.empty()) {
+    if (jugador_mas_cercano.dorsal.empty())
+    {
         std::cout << "No se encontraron jugadores cercanos." << std::endl;
         return;
     }
@@ -969,84 +970,60 @@ void mostrarJugadorMasCercano(const JugadorCercano &jugador_mas_cercano)
     std::cout << " " << std::endl;
 }
 
-void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball &ball)
-{   
-    if ((player.playmode == "goal_l_" + player.jugadorMarcaGol) || (player.playmode == "goal_r_" + player.jugadorMarcaGol) || player.playmode == "half_time") //movemos a los jugadores a su posicion inicial
-    {   
-        sendInitialMoveMessage(player, udp_socket, server_udp); 
-        configurePlayer(player); 
+void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball &ball, Goal &opponent_goal, Goal &own_goal)
+{
+    if ((player.playmode == "goal_l_" + player.jugadorMarcaGol) || (player.playmode == "goal_r_" + player.jugadorMarcaGol) || player.playmode == "half_time") // movemos a los jugadores a su posicion inicial
+    {
+        sendInitialMoveMessage(player, udp_socket, server_udp);
+        configurePlayer(player);
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
-    if ((player.playmode == "corner_kick_l" && player.side == "l") || (player.playmode == "corner_kick_r"  && player.side == "r"))
+    if ((player.playmode == "kick_in_l" && player.side == "l") || (player.playmode == "kick_in_r" && player.side == "r"))
     {
-        if (player.unum==9){
+        if (player.unum == 9)
+        {
             if (player.see_ball)
+            {
+
+                if (ball.distance < 1)
                 {
-                    int i = 0;
+
+                    // Si ve la porteria de nuestro equipo intenta chutar atrás para no automarcarsee
+                    // Se calcula el angulo para chutar hacia porteria del equipo rivalkajh
+                    double angle_away_from_own_goal = 180;
+                    cout << "lo estoy intentando" << endl;
+                    int power = 70; // Le he puesto 100 para alejar la pelota de nuestra área
+                    std::string kick_command = "(kick 60 180)";
+                    udp_socket.sendTo(kick_command, server_udp);
+                }
+                else
+                {
                     if (abs(ball.angle) >= 10)
                     {
-                        int division = 1;
-                        if (ball.distance < 6)
-                        {
-                            division = 20;
-                        }
-                        else
-                        {
-                            division = 5;
-                        }
-                        // Rotate the player to the ball
+                        int division = (ball.distance < 6) ? 20 : 5;
                         std::string rotate_command = "(turn " + to_string(ball.angle / division) + ")";
                         udp_socket.sendTo(rotate_command, server_udp);
                     }
-
                     else
                     {
-                        int power = 100;
-                        if (ball.distance < 3)
-                        {
-                            power = 60;
-                            std::string dash_command = "(dash " + to_string(power) + " 0)";
-                            udp_socket.sendTo(dash_command, server_udp);
-                        }
-                        else if (ball.distance < 7)
-                        {
-                            power = 80;
-                            std::string dash_command = "(dash " + to_string(power) + " 0)";
-                            udp_socket.sendTo(dash_command, server_udp);
-                        }
-                        else if(ball.distance<=1){
-                        power=10;
-                        float angle=130;
-                        std::string kick_command = "(kick " + to_string(power) + " " + to_string(angle) + ")";
-                        udp_socket.sendTo(kick_command, server_udp); // Enviar comando de chute}
-
-                        }
-
-
+                        int power = (ball.distance < 3) ? 60 : (ball.distance < 7) ? 80
+                                                                                   : 100;
+                        std::string dash_command = "(dash " + to_string(power) + " 0)";
+                        udp_socket.sendTo(dash_command, server_udp);
                     }
                 }
-
-                else
-
-                {
-                    //cout << "---------------rotating to find de ball-" << endl;
-                    // Rotate to find the ball
-                    if (player.y < 0)
-                    {
-                        std::string rotate_command = "(turn " + to_string(-80) + ")";
-                        udp_socket.sendTo(rotate_command, server_udp);
-                    }
-                    else
-                    {
-                        std::string rotate_command = "(turn " + to_string(80) + ")";
-                        udp_socket.sendTo(rotate_command, server_udp);
-                    }
-                }
+            }
+            else
+            {
+                int angle = (player.y < 0) ? -80 : 80;
+                std::string rotate_command = "(turn " + to_string(angle) + ")";
+                udp_socket.sendTo(rotate_command, server_udp);
+            }
         }
-        else{
-         udp_socket.sendTo(returnToZone(player), server_udp);
+        else
+        {
+            udp_socket.sendTo(returnToZone(player), server_udp);
         }
-
-    } 
+    }
 }

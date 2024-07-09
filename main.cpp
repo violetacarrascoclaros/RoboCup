@@ -246,214 +246,218 @@ int main(int argc, char *argv[])
     // First turn checks
     int first_turn_division = 0;
     bool first_turn = false;
-    while (true){
-    try
+    while (true)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-        auto received_message = udp_socket.receive(message_max_size);
-        std::string received_message_content = received_message->received_message;
-
-        vector<string> parsed_message = separate_string(received_message_content);
-        imInZone(player);
-        store_data_senseBody(received_message_content, player);
-        // Search for see message
-        store_data_hear(received_message_content, player, udp_socket, server_udp);
-        if (parsed_message[0].find("see") <= 5)
+        try
         {
-            vector<string> see_message = separate_string(parsed_message[0]);
-            store_data_see(see_message, player, ball, own_goal, opponent_goal, field);
-            // bool in_position = estasentusitio(field, player, own_goal, opponent_goal);
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            auto received_message = udp_socket.receive(message_max_size);
+            std::string received_message_content = received_message->received_message;
 
-            JugadorCercano jugador_mas_cercano = procesarJugadoresVisibles(see_message, player);
-            mostrarJugadorMasCercano(jugador_mas_cercano);
-            // Trilateration
-            vector<vector<double>> flags_rel = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom, field.flag_penalty_left_top, field.flag_penalty_left_center, field.flag_penalty_left_bottom, field.flag_penalty_right_top, field.flag_penalty_right_center, field.flag_penalty_right_bottom, field.flag_goal_left_top, field.flag_goal_left_bottom, field.flag_goal_right_top, field.flag_goal_right_bottom};
-            // vector<vector<double>> flags_abs = {field.flag_center_abs, field.flag_center_top_abs, field.flag_center_bottom_abs, field.flag_left_top_abs, field.flag_left_bottom_abs, field.flag_right_top_abs, field.flag_right_bottom_abs, field.flag_penalty_left_top_abs, field.flag_penalty_left_center_abs, field.flag_penalty_left_bottom_abs, field.flag_penalty_right_top_abs, field.flag_penalty_right_center_abs, field.flag_penalty_right_bottom_abs, field.flag_goal_left_top_abs, field.flag_goal_left_bottom_abs, field.flag_goal_right_top_abs, field.flag_goal_right_bottom_abs};
-
-            // Turn arround one first time to see the flags
-            if (first_turn == false)
+            vector<string> parsed_message = separate_string(received_message_content);
+            imInZone(player);
+            store_data_senseBody(received_message_content, player);
+            // Search for see message
+            store_data_hear(received_message_content, player, udp_socket, server_udp);
+            if (parsed_message[0].find("see") <= 5)
             {
-                std::string rotate_command = "(turn " + to_string(360 / 10) + ")";
-                udp_socket.sendTo(rotate_command, server_udp);
-                player.orientation = player.orientation + 360 / 10;
-                if (first_turn_division == 10)
-                {
-                    first_turn = true;
-                }
-                first_turn_division++;
-            }
+                vector<string> see_message = separate_string(parsed_message[0]);
+                store_data_see(see_message, player, ball, own_goal, opponent_goal, field);
+                // bool in_position = estasentusitio(field, player, own_goal, opponent_goal);
 
-            if (player.flags_seen >= 3) // Trilateration can be calculated with 3 flags
-            {
-                cout << "The player sees 3 flags or more" << endl;
-                int flags_used = 0;
-                Point2D P1 = {0, 0};
-                Point2D P2 = {0, 0};
-                Point2D P3 = {0, 0};
-                double D1 = 0;
-                double D2 = 0;
-                double D3 = 0;
-                // Recorre todas las variables de la estructura field
-                for (int i = 0; i < flags_rel.size(); i++)
+                JugadorCercano jugador_mas_cercano = procesarJugadoresVisibles(see_message, player);
+                mostrarJugadorMasCercano(jugador_mas_cercano);
+                // Trilateration
+                vector<vector<double>> flags_rel = {field.flag_center, field.flag_center_top, field.flag_center_bottom, field.flag_left_top, field.flag_left_bottom, field.flag_right_top, field.flag_right_bottom, field.flag_penalty_left_top, field.flag_penalty_left_center, field.flag_penalty_left_bottom, field.flag_penalty_right_top, field.flag_penalty_right_center, field.flag_penalty_right_bottom, field.flag_goal_left_top, field.flag_goal_left_bottom, field.flag_goal_right_top, field.flag_goal_right_bottom};
+                // vector<vector<double>> flags_abs = {field.flag_center_abs, field.flag_center_top_abs, field.flag_center_bottom_abs, field.flag_left_top_abs, field.flag_left_bottom_abs, field.flag_right_top_abs, field.flag_right_bottom_abs, field.flag_penalty_left_top_abs, field.flag_penalty_left_center_abs, field.flag_penalty_left_bottom_abs, field.flag_penalty_right_top_abs, field.flag_penalty_right_center_abs, field.flag_penalty_right_bottom_abs, field.flag_goal_left_top_abs, field.flag_goal_left_bottom_abs, field.flag_goal_right_top_abs, field.flag_goal_right_bottom_abs};
+
+                // Turn arround one first time to see the flags
+                if (first_turn == false)
                 {
-                    // If the flag coordinates are (999, 999) then the flag is not seen
-                    if (flags_rel[i][0] != 999 && flags_used < 3)
+                    std::string rotate_command = "(turn " + to_string(360 / 10) + ")";
+                    udp_socket.sendTo(rotate_command, server_udp);
+                    player.orientation = player.orientation + 360 / 10;
+                    if (first_turn_division == 10)
                     {
-                        flags_used++;
-                        if (flags_used == 1)
+                        first_turn = true;
+                    }
+                    first_turn_division++;
+                }
+
+                if (player.flags_seen >= 3) // Trilateration can be calculated with 3 flags
+                {
+                    cout << "The player sees 3 flags or more" << endl;
+                    int flags_used = 0;
+                    Point2D P1 = {0, 0};
+                    Point2D P2 = {0, 0};
+                    Point2D P3 = {0, 0};
+                    double D1 = 0;
+                    double D2 = 0;
+                    double D3 = 0;
+                    // Recorre todas las variables de la estructura field
+                    for (int i = 0; i < flags_rel.size(); i++)
+                    {
+                        // If the flag coordinates are (999, 999) then the flag is not seen
+                        if (flags_rel[i][0] != 999 && flags_used < 3)
                         {
-                            D1 = sqrt(pow(flags_rel[i][0], 2) + pow(flags_rel[i][1], 2));
-                            P1 = flags[i];
-                            cout << "D1: " << D1 << endl;
-                        }
-                        else if (flags_used == 2)
-                        {
-                            D2 = sqrt(pow(flags_rel[i][0], 2) + pow(flags_rel[i][1], 2));
-                            P2 = flags[i];
-                            cout << "D2: " << D2 << endl;
-                        }
-                        else if (flags_used == 3)
-                        {
-                            D3 = sqrt(pow(flags_rel[i][0], 2) + pow(flags_rel[i][1], 2));
-                            P3 = flags[i];
-                            cout << "D3: " << D3 << endl;
+                            flags_used++;
+                            if (flags_used == 1)
+                            {
+                                D1 = sqrt(pow(flags_rel[i][0], 2) + pow(flags_rel[i][1], 2));
+                                P1 = flags[i];
+                                cout << "D1: " << D1 << endl;
+                            }
+                            else if (flags_used == 2)
+                            {
+                                D2 = sqrt(pow(flags_rel[i][0], 2) + pow(flags_rel[i][1], 2));
+                                P2 = flags[i];
+                                cout << "D2: " << D2 << endl;
+                            }
+                            else if (flags_used == 3)
+                            {
+                                D3 = sqrt(pow(flags_rel[i][0], 2) + pow(flags_rel[i][1], 2));
+                                P3 = flags[i];
+                                cout << "D3: " << D3 << endl;
+                            }
                         }
                     }
-                }
-                if (flags_used == 3)
-                {
-                    std::vector<std::pair<Point2D, double>> observations = {
-                        {P1, D1},
-                        {P2, D2},
-                        {P3, D3}};
-                    /*
-                    cout << "P1_tri: " << P1[0] << " " << P1[1] << endl;
-                    cout << "D1: " << D1 << endl;
-                    vector<double> result = trilateration(P1, P2, P3, D1, D2, D3);
-                    cout << "Trilateration result: " << result[0] << " " << result[1] << endl;
-                    */
-                    // Simulate robot movement
-                    mcl.update_with_motion(0.0, 0.0);
-
-                    // Update based on measurement
-                    mcl.update_with_measurement(observations);
-
-                    // Resample particles
-                    mcl.resample_particles();
-
-                    // Estimate position
-                    Point2D estimated_pos = mcl.estimate_position();
-                    std::cout << "Estimated position: (" << estimated_pos.x << ", " << estimated_pos.y << ")\n";
-                    player.x = estimated_pos.x;
-                    player.y = estimated_pos.y;
-                }
-            }
-
-            // Logic of the player
-           
-            int mejorAccion = obtenerMejorAccion(player, ball, opponent_goal, see_message);
-            cout << "Mejor accion: " << mejorAccion << endl;
-            cout << "numero" << player.unum << endl;
-            cout <<"DIstancia a zona"<<player.distancia_a_zona<<endl;
-            cout << "En posicion: " << player.in_zone << endl;
-
-
-            funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball);
-            switch (mejorAccion)
-            {
-            case 0:  // Perform go for the ball
-                if (player.see_ball)
-                {
-                    int i = 0;
-                    if (abs(ball.angle) >= 10)
+                    if (flags_used == 3)
                     {
-                        int division = 1;
-                        if (ball.distance < 6)
+                        std::vector<std::pair<Point2D, double>> observations = {
+                            {P1, D1},
+                            {P2, D2},
+                            {P3, D3}};
+                        /*
+                        cout << "P1_tri: " << P1[0] << " " << P1[1] << endl;
+                        cout << "D1: " << D1 << endl;
+                        vector<double> result = trilateration(P1, P2, P3, D1, D2, D3);
+                        cout << "Trilateration result: " << result[0] << " " << result[1] << endl;
+                        */
+                        // Simulate robot movement
+                        mcl.update_with_motion(0.0, 0.0);
+
+                        // Update based on measurement
+                        mcl.update_with_measurement(observations);
+
+                        // Resample particles
+                        mcl.resample_particles();
+
+                        // Estimate position
+                        Point2D estimated_pos = mcl.estimate_position();
+                        std::cout << "Estimated position: (" << estimated_pos.x << ", " << estimated_pos.y << ")\n";
+                        player.x = estimated_pos.x;
+                        player.y = estimated_pos.y;
+                    }
+                }
+
+                // Logic of the player
+
+                int mejorAccion = obtenerMejorAccion(player, ball, opponent_goal, see_message);
+                cout << "Mejor accion: " << mejorAccion << endl;
+                cout << "numero" << player.unum << endl;
+                cout << "DIstancia a zona" << player.distancia_a_zona << endl;
+                cout << "En posicion: " << player.in_zone << endl;
+
+                funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball, opponent_goal, own_goal);
+                if (player.playmode != "kick_in_l"||player.playmode != "kick_in_r"||player.playmode != "goal_l_l"||player.playmode != "goal_r_r"||player.playmode != "goal_l_r"||player.playmode != "goal_r_l")
+                {
+                    switch (mejorAccion)
+                    {
+                    case 0: // Perform go for the ball
+                        if (player.see_ball)
                         {
-                            division = 20;
+                            int i = 0;
+                            if (abs(ball.angle) >= 10)
+                            {
+                                int division = 1;
+                                if (ball.distance < 6)
+                                {
+                                    division = 20;
+                                }
+                                else
+                                {
+                                    division = 5;
+                                }
+                                // Rotate the player to the ball
+                                std::string rotate_command = "(turn " + to_string(ball.angle / division) + ")";
+                                udp_socket.sendTo(rotate_command, server_udp);
+                            }
+
+                            else
+                            {
+                                int power = 100;
+                                if (ball.distance < 3)
+                                {
+                                    power = 60;
+                                }
+                                else if (ball.distance < 7)
+                                {
+                                    power = 80;
+                                }
+                                // In this moment, the player should be looking to the ball
+                                // Create the dash command
+                                std::string dash_command = "(dash " + to_string(power) + " 0)";
+                                udp_socket.sendTo(dash_command, server_udp);
+                            }
+                        }
+
+                        else
+
+                        {
+                            // cout << "---------------rotating to find de ball-" << endl;
+                            //  Rotate to find the ball
+                            if (player.y < 0)
+                            {
+                                std::string rotate_command = "(turn " + to_string(-80) + ")";
+                                udp_socket.sendTo(rotate_command, server_udp);
+                            }
+                            else
+                            {
+                                std::string rotate_command = "(turn " + to_string(80) + ")";
+                                udp_socket.sendTo(rotate_command, server_udp);
+                            }
+                        }
+
+                        break;
+                    case 1: // Perform pass the ball
+                        pase(player, ball, jugador_mas_cercano, udp_socket, server_udp);
+                        break;
+                    case 2: // Perform kick the ball to the goal
+                        chutarPorteria(player, ball, opponent_goal, udp_socket, server_udp);
+                        break;
+                    case 3: // Perform go to the zone
+
+                        udp_socket.sendTo(returnToZone(player), server_udp);
+                        break;
+                    default:
+                        // search for the ball
+                        if (player.see_ball)
+                        {
                         }
                         else
                         {
-                            division = 5;
+                            if (player.y < 0)
+                            {
+                                std::string rotate_command = "(turn " + to_string(-10) + ")";
+                                udp_socket.sendTo(rotate_command, server_udp);
+                            }
+                            else
+                            {
+                                std::string rotate_command = "(turn " + to_string(10) + ")";
+                                udp_socket.sendTo(rotate_command, server_udp);
+                            }
                         }
-                        // Rotate the player to the ball
-                        std::string rotate_command = "(turn " + to_string(ball.angle / division) + ")";
-                        udp_socket.sendTo(rotate_command, server_udp);
-                    }
-
-                    else
-                    {
-                        int power = 100;
-                        if (ball.distance < 3)
-                        {
-                            power = 60;
-                        }
-                        else if (ball.distance < 7)
-                        {
-                            power = 80;
-                        }
-                        // In this moment, the player should be looking to the ball
-                        // Create the dash command
-                        std::string dash_command = "(dash " + to_string(power) + " 0)";
-                        udp_socket.sendTo(dash_command, server_udp);
+                        break;
                     }
                 }
 
-                else
-
-                {
-                    //cout << "---------------rotating to find de ball-" << endl;
-                    // Rotate to find the ball
-                    if (player.y < 0)
-                    {
-                        std::string rotate_command = "(turn " + to_string(-80) + ")";
-                        udp_socket.sendTo(rotate_command, server_udp);
-                    }
-                    else
-                    {
-                        std::string rotate_command = "(turn " + to_string(80) + ")";
-                        udp_socket.sendTo(rotate_command, server_udp);
-                    }
-                }
-
-                break;
-            case 1:  // Perform pass the ball
-                pase(player,ball,jugador_mas_cercano,udp_socket,server_udp);
-                break;
-            case 2: // Perform kick the ball to the goal
-                chutarPorteria(player, ball, opponent_goal, udp_socket, server_udp);
-                break;
-            case 3:  // Perform go to the zone
-
-                udp_socket.sendTo(returnToZone(player), server_udp);
-                break;
-            default:
-                // search for the ball
-                if (player.see_ball)
-                {
-                }
-                else
-                {
-                    if (player.y < 0)
-                    {
-                        std::string rotate_command = "(turn " + to_string(-10) + ")";
-                        udp_socket.sendTo(rotate_command, server_udp);
-                    }
-                    else
-                    {
-                        std::string rotate_command = "(turn " + to_string(10) + ")";
-                        udp_socket.sendTo(rotate_command, server_udp);
-                    }
-                }
-                break;
+                // end logic of the player
             }
-
-            // end logic of the player
         }
-    }
-    catch(exception& e){
-        cout << "Error: " << e.what() << endl;
-    }
+        catch (exception &e)
+        {
+            cout << "Error: " << e.what() << endl;
+        }
     }
     return 0;
 }
