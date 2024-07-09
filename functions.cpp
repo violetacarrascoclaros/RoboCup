@@ -159,6 +159,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
     field.flag_goal_left_bottom = {999, 999};
     field.flag_goal_right_top = {999, 999};
     field.flag_goal_right_bottom = {999, 999};
+    ball.distance=999;
 
     if (own_goal.side == "l")
     {
@@ -194,6 +195,7 @@ void store_data_see(vector<string> &see_message, Player &player, Ball &ball, Goa
             double angle = atan2(stod(ball.y), stod(ball.x));
             ball.angle = angle * 180 / M_PI;
         }
+
 
         // Search for the right goal
         if (see_message[i].find("(g r)") != string::npos)

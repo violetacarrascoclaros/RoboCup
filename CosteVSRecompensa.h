@@ -14,6 +14,7 @@ void calcularCosteYRecompensaPasar(Player& player, const Ball& ball, const Goal&
 void calcularCosteYRecompensaChutar(Player& player, const Ball& ball, const Goal& goal, double& coste, double& recompensa,vector<string> see_message);
 void calcularCosteYRecompensaVolverAZona(Player& player, const Ball& ball, const Goal& goal, double& coste, double& recompensa,vector<string> see_message);
 void MirarPelota(Player& player, const Ball& ball, const Goal& goal, double& coste, double& recompensa,vector<string> see_message);
+void calcularCosteYRecompensaIrconPelota(Player& player, const Ball& ball, const Goal& goal, double& coste, double& recompensa,vector<string> see_message);
 
 int obtenerMejorAccion(Player& player, const Ball& ball, const Goal& goal,vector<string> see_message);
 

@@ -64,6 +64,7 @@ void calcularCosteYRecompensaIrAPorLaPelota(Player& player, const Ball& ball, co
 
    //Ajuste si ya esta en la pelota
     if (distPelota < 1 ) {
+        cout <<ball.distance<<endl;
         coste=100; 
         recompensa=0;
     }
@@ -159,6 +160,7 @@ void calcularCosteYRecompensaChutar(Player& player, const Ball& ball, const Goal
     }
     if(player.see_own_goal){
         coste=100;
+        recompensa=0;
     }
 
     if(distPelota<1.3&&player.see_opponent_goal&&goal.distance<25){
@@ -220,6 +222,12 @@ void calcularCosteYRecompensaVolverAZona(Player& player, const Ball& ball, const
         coste = 100; // Recompensa baja si ya está en la zona
         recompensa=0;
     }
+}
+
+
+
+void calcularCosteYRecompensaIrconPelota(Player& player, const Ball& ball, const Goal& goal, double& coste, double& recompensa,vector<string> see_message){
+    
 }
 
 int obtenerMejorAccion(Player& player, const Ball& ball, const Goal& goal,vector<string> see_message) {
