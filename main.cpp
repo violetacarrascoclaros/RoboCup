@@ -357,100 +357,106 @@ int main(int argc, char *argv[])
                 cout << "numero" << player.unum << endl;
                 cout << "DIstancia a zona" << player.distancia_a_zona << endl;
                 cout << "En posicion: " << player.in_zone << endl;
-
-                funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball, opponent_goal, own_goal);
-                if (player.playmode != "kick_in_l"||player.playmode != "kick_in_r"||player.playmode != "goal_l_l"||player.playmode != "goal_r_r"||player.playmode != "goal_l_r"||player.playmode != "goal_r_l")
+                if (player.unum != 1)
                 {
-                    switch (mejorAccion)
+                    funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball, opponent_goal, own_goal);
+                    if (player.playmode != "kick_in_l" || player.playmode != "kick_in_r" || player.playmode != "goal_l_l" || player.playmode != "goal_r_r" || player.playmode != "goal_l_r" || player.playmode != "goal_r_l")
                     {
-                    case 0: // Perform go for the ball
-                        if (player.see_ball)
+                        switch (mejorAccion)
                         {
-                            int i = 0;
-                            if (abs(ball.angle) >= 10)
+                        case 0: // Perform go for the ball
+                            if (player.see_ball)
                             {
-                                int division = 1;
-                                if (ball.distance < 6)
+                                int i = 0;
+                                if (abs(ball.angle) >= 10)
                                 {
-                                    division = 20;
+                                    int division = 1;
+                                    if (ball.distance < 6)
+                                    {
+                                        division = 20;
+                                    }
+                                    else
+                                    {
+                                        division = 5;
+                                    }
+                                    // Rotate the player to the ball
+                                    std::string rotate_command = "(turn " + to_string(ball.angle / division) + ")";
+                                    udp_socket.sendTo(rotate_command, server_udp);
+                                }
+
+                                else
+                                {
+                                    int power = 100;
+                                    if (ball.distance < 3)
+                                    {
+                                        power = 60;
+                                    }
+                                    else if (ball.distance < 7)
+                                    {
+                                        power = 80;
+                                    }
+                                    // In this moment, the player should be looking to the ball
+                                    // Create the dash command
+                                    std::string dash_command = "(dash " + to_string(power) + " 0)";
+                                    udp_socket.sendTo(dash_command, server_udp);
+                                }
+                            }
+
+                            else
+
+                            {
+                                // cout << "---------------rotating to find de ball-" << endl;
+                                //  Rotate to find the ball
+                                if (player.y < 0)
+                                {
+                                    std::string rotate_command = "(turn " + to_string(-80) + ")";
+                                    udp_socket.sendTo(rotate_command, server_udp);
                                 }
                                 else
                                 {
-                                    division = 5;
+                                    std::string rotate_command = "(turn " + to_string(80) + ")";
+                                    udp_socket.sendTo(rotate_command, server_udp);
                                 }
-                                // Rotate the player to the ball
-                                std::string rotate_command = "(turn " + to_string(ball.angle / division) + ")";
-                                udp_socket.sendTo(rotate_command, server_udp);
                             }
 
+                            break;
+                        case 1: // Perform pass the ball
+                            pase(player, ball, jugador_mas_cercano, udp_socket, server_udp);
+                            break;
+                        case 2: // Perform kick the ball to the goal
+                            chutarPorteria(player, ball, opponent_goal, udp_socket, server_udp);
+                            break;
+                        case 3: // Perform go to the zone
+
+                            udp_socket.sendTo(returnToZone(player), server_udp);
+                            break;
+                        default:
+                            // search for the ball
+                            if (player.see_ball)
+                            {
+                            }
                             else
                             {
-                                int power = 100;
-                                if (ball.distance < 3)
+                                if (player.y < 0)
                                 {
-                                    power = 60;
+                                    std::string rotate_command = "(turn " + to_string(-10) + ")";
+                                    udp_socket.sendTo(rotate_command, server_udp);
                                 }
-                                else if (ball.distance < 7)
+                                else
                                 {
-                                    power = 80;
+                                    std::string rotate_command = "(turn " + to_string(10) + ")";
+                                    udp_socket.sendTo(rotate_command, server_udp);
                                 }
-                                // In this moment, the player should be looking to the ball
-                                // Create the dash command
-                                std::string dash_command = "(dash " + to_string(power) + " 0)";
-                                udp_socket.sendTo(dash_command, server_udp);
                             }
+                            break;
                         }
-
-                        else
-
-                        {
-                            // cout << "---------------rotating to find de ball-" << endl;
-                            //  Rotate to find the ball
-                            if (player.y < 0)
-                            {
-                                std::string rotate_command = "(turn " + to_string(-80) + ")";
-                                udp_socket.sendTo(rotate_command, server_udp);
-                            }
-                            else
-                            {
-                                std::string rotate_command = "(turn " + to_string(80) + ")";
-                                udp_socket.sendTo(rotate_command, server_udp);
-                            }
-                        }
-
-                        break;
-                    case 1: // Perform pass the ball
-                        pase(player, ball, jugador_mas_cercano, udp_socket, server_udp);
-                        break;
-                    case 2: // Perform kick the ball to the goal
-                        chutarPorteria(player, ball, opponent_goal, udp_socket, server_udp);
-                        break;
-                    case 3: // Perform go to the zone
-
-                        udp_socket.sendTo(returnToZone(player), server_udp);
-                        break;
-                    default:
-                        // search for the ball
-                        if (player.see_ball)
-                        {
-                        }
-                        else
-                        {
-                            if (player.y < 0)
-                            {
-                                std::string rotate_command = "(turn " + to_string(-10) + ")";
-                                udp_socket.sendTo(rotate_command, server_udp);
-                            }
-                            else
-                            {
-                                std::string rotate_command = "(turn " + to_string(10) + ")";
-                                udp_socket.sendTo(rotate_command, server_udp);
-                            }
-                        }
-                        break;
                     }
                 }
-
+                else
+                {
+                    cout<<"entrando a funcion"<<endl;
+                    logica_portero(player, udp_socket, server_udp, ball, field);
+                }
                 // end logic of the player
             }
         }

@@ -1074,3 +1074,35 @@ void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp:
     }
 
 }
+
+void logica_portero(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball &ball, Field &field)
+{
+    if (player.see_ball)
+    {
+        if (ball.distance < 1.0)
+        {
+            if (ball.angle < 10 && ball.angle > -10)
+            {
+                std::string catch_command = "(catch " + to_string(ball.angle) + ")";
+                udp_socket.sendTo(catch_command, server_udp);
+            }
+        }
+        else
+        {
+            cout<<"entro"<<endl;
+            // Mantener la misma coordenada en y que la pelota
+            if (stod(ball.y) > 0 && (field.flag_goal_left_top[1] < 0 || field.flag_goal_left_top[1] < 0))
+            {
+                cout<<"1111"<<endl;
+                std::string dash_command = "(dash 100 90)";
+                udp_socket.sendTo(dash_command, server_udp);
+            }
+            else if (stod(ball.y) < 0 && (field.flag_goal_right_bottom[1] > 0 || field.flag_goal_right_bottom[1] > 0))
+            {
+                cout<<"2222"<<endl;
+                std::string dash_command = "(dash 100 -90)";
+                udp_socket.sendTo(dash_command, server_udp);
+            }
+        }
+    }
+}

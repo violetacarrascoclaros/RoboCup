@@ -5,7 +5,7 @@ echo "Ingrese el nombre del equipo:"
 read OPONENT_NAME
 
 # Definir la ubicación del ejecutable player (se encuentra en la carpeta build)
-PLAYER_EXECUTABLE="./build/player"
+PLAYER_EXECUTABLE="~/andriana/FC_Oesia/build/player"
 
 # Definir el nombre de tu equipo y los puertos base
 BASE_PORT=6300

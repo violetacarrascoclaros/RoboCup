@@ -45,8 +45,9 @@ void store_data_senseBody(string &senseBody_message, Player &player);
 // Función para procesar mensajes 'hear'
 void store_data_hear(string &hear_message, Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp);
 
+void logica_portero(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball &ball, Field &field);
 
- void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball &ball,Goal &opponent_goal,Goal &own_goal);
+void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp::Udp<true> &udp_socket, MinimalSocket::Address const &server_udp, Ball &ball,Goal &opponent_goal,Goal &own_goal);
 
 #endif
 
