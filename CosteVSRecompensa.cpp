@@ -178,7 +178,7 @@ void calcularCosteYRecompensaVolverAZona(Player& player, const Ball& ball, const
     double distancia_a_zona=player.distancia_a_zona;
     int jugadoresCerca = player.num_jug_cerca;    // numJugadoresCerca(player);
     // Coste base
-    coste = 10;
+    coste = 30;
     // Recompensa base
     recompensa=41;
     // Ajuste por cercanía a portería

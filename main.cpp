@@ -151,7 +151,7 @@ private:
 int main(int argc, char *argv[])
 {
     // check if the number of arguments is correct
-    if (argc != 3)
+    if (argc != 4)
     {
         cout << "Usage: " << argv[0] << " <team-name> <this-port>" << endl;
         return 1;
@@ -176,9 +176,18 @@ int main(int argc, char *argv[])
     }
 
     MinimalSocket::Address other_recipient_udp = MinimalSocket::Address{"127.0.0.1", 6000};
-    cout << "(init " + team_name + "(version 15))";
-
-    udp_socket.sendTo("(init " + team_name + "(version 15))", other_recipient_udp);
+    string message_aux;
+    string player_type = argv[3];
+    if (player_type == "p")
+    {
+        message_aux= "(init " + team_name + "(version 15))";
+    }
+    else if (player_type == "g")
+    {
+        message_aux= "(init " + team_name + "(version 15) (goalie))";
+    }
+    cout<<"Message: "<<message_aux<<endl;
+    udp_socket.sendTo(message_aux, other_recipient_udp);
     cout << "Init Message sent" << endl;
 
     std::size_t message_max_size = 1000000;
@@ -361,8 +370,8 @@ int main(int argc, char *argv[])
                 {
                     if(player.playmode!="danger"){
                     funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball, opponent_goal, own_goal);
-                    if (player.playmode != "kick_in_l" || player.playmode != "kick_in_r" || player.playmode != "goal_l_l" || player.playmode != "goal_r_r" || player.playmode != "goal_l_r" || player.playmode != "goal_r_l")
-                    {
+                    //if (player.playmode!="kick_off_l"||player.playmode!="kick_off_r"||player.playmode!="free_kick_l"||player.playmode!="free_kick_r"||player.playmode!="corner_kick_l"||player.playmode!="corner_kick_r"||player.playmode!="kick_in_l"||player.playmode!="kick_in_r"||player.playmode!="goal_l_l"||player.playmode!="goal_l_r"||player.playmode!="half_time"||player.playmode!="before_kick_off")
+                    //{
                         switch (mejorAccion)
                         {
                         case 0: // Perform go for the ball
@@ -451,7 +460,7 @@ int main(int argc, char *argv[])
                             }
                             break;
                         }
-                    }
+                    //}
                     }
                     else{
                         chutarPorteria(player, ball, opponent_goal, udp_socket, server_udp,own_goal);
@@ -468,6 +477,7 @@ int main(int argc, char *argv[])
         catch (exception &e)
         {
             cout << "Error: " << e.what() << endl;
+            std::this_thread::sleep_for(std::chrono::milliseconds(10000000000000000));
         }
     }
     return 0;
