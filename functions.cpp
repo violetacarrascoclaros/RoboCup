@@ -24,8 +24,8 @@ void sendInitialMoveMessage(const Player &player, MinimalSocket::udp::Udp<true> 
 
     vector<Posicion>
         posiciones = {{-50, 0},
-                      {-40, -10},
-                      {-35, -28},
+                      {-45, -4},
+                      {-45, 4},
                       {-40, 10},
                       {-35, 28},
                       {-25, 11},
@@ -509,7 +509,7 @@ void chutarPorteria(Player &player, Ball &ball, Goal &opponent_goal, MinimalSock
     if (player.see_opponent_goal)
     {
         cout << "DISTANCIA PORTERIAAAAAAAAAAAAAAAAAAAA" << opponent_goal.distance << endl;
-        if (ball.distance < 1)
+        if (ball.distance < 1.4)
         {
             int power = 100;
             float angle = opponent_goal.angle; // Ángulo hacia la portería contraria
@@ -524,7 +524,7 @@ void chutarPorteria(Player &player, Ball &ball, Goal &opponent_goal, MinimalSock
         else
         {
             int i = 0;
-            if (abs(ball.angle) >= 10)
+            if (abs(ball.angle) >= 20)
             {
                 int division = 1;
                 if (ball.distance < 6)
@@ -623,7 +623,7 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
 {
     vector<Posicion>
         posiciones = {{-50, 0},
-                      {-40, -10},
+                      {-40, 0},
                       {-35, -28},
                       {-40, 10},
                       {-35, 28},
@@ -684,7 +684,7 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
         {
             player.rol = "DEFENSA";
             player.range = 20;
-            player.zone = {-50, -20};
+            player.zone = {-37, 3};
             player.zone_name = "(f " + player.side + " t)";
         }
     }
@@ -718,7 +718,7 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
         {
             player.rol = "DEFENSA";
             player.range = 20;
-            player.zone = {-50, -10};
+            player.zone = {-37, -3};
             player.zone_name = "(f p " + player.side + " t)";
         }
     }
@@ -778,14 +778,14 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
         if (player.side == "r")
         {
             player.rol = "DELANTERO";
-            player.range = 20;
+            player.range = 60;
             player.zone = {10, 0};
             player.zone_name = "(f p r c)";
         }
         else
         {
             player.rol = "DELANTERO";
-            player.range = 20;
+            player.range = 60;
             player.zone = {-10, 0};
             player.zone_name = "(f p l c)";
         }
@@ -795,14 +795,14 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
         if (player.side == "r")
         {
             player.rol = "DELANTERO";
-            player.range = 15;
+            player.range = 60;
             player.zone = {20, 0};
             player.zone_name = "(f c)";
         }
         else
         {
             player.rol = "DELANTERO";
-            player.range = 15;
+            player.range = 60;
             player.zone = posiciones[player.unum - 1];
             player.zone_name = "(f c)";
         }
@@ -829,14 +829,14 @@ void configurePlayer(Player &player) // la  mitad de los jugadores de la derecha
         if (player.side == "r")
         {
             player.rol = "DELANTERO";
-            player.range = 30;
+            player.range = 60;
             player.zone = {10, 25};
             player.zone_name = "(f c b)";
         }
         else
         {
             player.rol = "DELANTERO";
-            player.range = 30;
+            player.range = 60;
             player.zone = {-10, -20};
             player.zone_name = "(f c t)";
         }
@@ -867,7 +867,7 @@ string returnToZone(Player const &player)
         }
         else
         {
-            std::string dash_command = "(dash 100 0)";
+            std::string dash_command = "(dash 30 0)";
             return dash_command;
         }
     }
@@ -1146,7 +1146,7 @@ void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp:
                 udp_socket.sendTo(rotate_command, server_udp);
             }
         }
-        else if(player.unum!=1&&player.unum!=9)
+        else if(player.unum!=1)
         {
             udp_socket.sendTo(returnToZone(player), server_udp);
         }
@@ -1154,7 +1154,7 @@ void funcion_modos_juego(const string &modo, Player &player, MinimalSocket::udp:
 
     if ((player.playmode == "corner_kick_r" && player.side == "r") || (player.playmode == "corner_kick_l" && player.side == "l"))
     {
-        if (player.unum == 11 || player.unum == 10 || player.unum == 9)
+        if (player.unum == 9)
         {
             if (player.see_ball)
             {
@@ -1259,12 +1259,12 @@ void logica_portero(Player &player, MinimalSocket::udp::Udp<true> &udp_socket, M
                 cout << "izqda arriba" << field.flag_penalty_left_top[1] << endl;
                 cout << "pelota y" << ball.y << endl;
                 // Mantener la misma coordenada en y que la pelota
-                if (stod(ball.y) > 0 && (player.y<7))
+                if (stod(ball.y) > 0 && (player.y<5))
                 {
                     std::string dash_command = "(dash 100 90)";
                     udp_socket.sendTo(dash_command, server_udp);
                 }
-                else if (stod(ball.y) < 0 && (player.y>-7))
+                else if (stod(ball.y) < 0 && (player.y>-5))
                 {
                     std::string dash_command = "(dash 100 -90)";
                     udp_socket.sendTo(dash_command, server_udp);

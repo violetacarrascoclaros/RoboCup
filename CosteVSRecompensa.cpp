@@ -77,7 +77,7 @@ void calcularCosteYRecompensaPasar(Player& player, const Ball& ball, const Goal&
     double distPorteria = goal.distance;
     int jugadoresCerca = player.num_jug_cerca; 
     // Coste base
-    coste = 50;
+    coste = 80;
     // Recompensa base
     recompensa = 40; 
     // Ajuste por estamina
