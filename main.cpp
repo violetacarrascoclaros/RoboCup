@@ -359,6 +359,7 @@ int main(int argc, char *argv[])
                 cout << "En posicion: " << player.in_zone << endl;
                 if (player.unum != 1)
                 {
+                    if(player.playmode!="danger"){
                     funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball, opponent_goal, own_goal);
                     if (player.playmode != "kick_in_l" || player.playmode != "kick_in_r" || player.playmode != "goal_l_l" || player.playmode != "goal_r_r" || player.playmode != "goal_l_r" || player.playmode != "goal_r_l")
                     {
@@ -424,7 +425,7 @@ int main(int argc, char *argv[])
                             pase(player, ball, jugador_mas_cercano, udp_socket, server_udp);
                             break;
                         case 2: // Perform kick the ball to the goal
-                            chutarPorteria(player, ball, opponent_goal, udp_socket, server_udp);
+                            chutarPorteria(player, ball, opponent_goal, udp_socket, server_udp,own_goal);
                             break;
                         case 3: // Perform go to the zone
 
@@ -450,6 +451,10 @@ int main(int argc, char *argv[])
                             }
                             break;
                         }
+                    }
+                    }
+                    else{
+                        chutarPorteria(player, ball, opponent_goal, udp_socket, server_udp,own_goal);
                     }
                 }
                 else
