@@ -466,9 +466,10 @@ int main(int argc, char *argv[])
                         chutarPorteria(player, ball, opponent_goal, udp_socket, server_udp,own_goal);
                     }
                 }
-                else
+                else if(player.unum==1)
                 {
                     cout<<"entrando a funcion"<<endl;
+                    funcion_modos_juego(player.playmode, player, udp_socket, server_udp, ball, opponent_goal, own_goal);
                     logica_portero(player, udp_socket, server_udp, ball, field);
                 }
                 // end logic of the player

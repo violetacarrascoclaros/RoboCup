@@ -146,7 +146,7 @@ void calcularCosteYRecompensaChutar(Player& player, const Ball& ball, const Goal
     if (player.rol == "DELANTERO") {
         recompensa +=20; // Mayor recompensa para delanteros
     } else if (player.rol == "DEFENSA") {
-        coste += 10; // Mayor coste para defensas
+        coste -= 10; // Mayor coste para defensas
     } else if (player.rol == "PORTERO") {
         coste += 20; // Mayor coste para porteros
     }
@@ -213,7 +213,7 @@ void calcularCosteYRecompensaVolverAZona(Player& player, const Ball& ball, const
     if (player.rol == "DELANTERO") {
         coste += 15; // Mayor coste para delanteros
     } else if (player.rol == "DEFENSA") {
-        recompensa += 15; // Mayor recompensa para defensas
+        recompensa += 0; // Mayor recompensa para defensas
     } else if (player.rol == "PORTERO") {
         recompensa += 20; // Mayor recompensa para porteros
     }
@@ -263,7 +263,7 @@ int obtenerMejorAccion(Player& player, const Ball& ball, const Goal& goal,vector
     cout << "Coste y recompensa de chutar: "<<costeChutar<<" "<<recompensaChutar<<" " << resultadoChutar << endl;
     cout << "Coste y recompensa de volver a la zona: " <<costeVolverAZona<<" "<<recompensaVolverAZona<<" "<< resultadoVolverAZona << endl;
     cout << "----------------------------------------" << endl;
-    cout <<"numer jugadores cerca: "<<"3"<<endl;
+    cout <<"numer jugadores cerca: "<<player.num_jug_cerca<<endl;
     if (resultadoChutar<=-5&&resultadoPasar<=-5&&resultadoIrAPorPelota<=-5&&resultadoVolverAZona<=-5){
         return 8;
     }
